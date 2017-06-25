@@ -23,6 +23,11 @@
 	background-color: black !important;
 }
 
+.mid-size-container-inverted {
+	background-color: black !important;
+	padding-top: 100px !important;
+}
+
 .logo-text {
 	font-family: 'Arvo', serif !important;
 	font-size: 80px !important;
