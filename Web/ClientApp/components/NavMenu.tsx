@@ -1,11 +1,16 @@
+import * as $ from 'jquery'; 
 import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, Segment } from 'semantic-ui-react'
+import { Menu, Segment } from 'semantic-ui-react';
 
 export class NavMenu extends React.Component<{}, {}> {
 	state = { activeItem: "home"}
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+	handleItemClick = (e, { name }) => {
+		this.setState({ activeItem: name });
+		console.log($("#market"));
+		$("html, body").animate({ scrollTop: $('#' + name).offset().top }, 1000);
+	};
 
 	public render() {
 		const { activeItem } = this.state
@@ -13,7 +18,7 @@ export class NavMenu extends React.Component<{}, {}> {
 		return (
 			<Segment inverted className='primary-background-color'>
 				<Menu inverted pointing secondary size='large' fixed='top' className='primary-background-color'>
-				<Menu.Item
+					<Menu.Item
 					name='home'
 					active={activeItem === 'home'}
 					onClick={this.handleItemClick}
@@ -21,20 +26,36 @@ export class NavMenu extends React.Component<{}, {}> {
 					Home
 				</Menu.Item>
 
-				<Menu.Item
-					name='whitepaper'
-					active={activeItem === 'whitepaper'}
+					<Menu.Item
+					name='ico'
+					active={activeItem === 'ico'}
 					onClick={this.handleItemClick}
 				>
-					Whitepaper
+					ICO
 				</Menu.Item>
 
-				<Menu.Item
-					name='contact'
-					active={activeItem === 'contact'}
+					<Menu.Item
+					name='market'
+					active={activeItem === 'market'}
 					onClick={this.handleItemClick}
 				>
-					Contact
+					Market
+				</Menu.Item>
+
+					<Menu.Item
+					name='platform'
+					active={activeItem === 'platform'}
+					onClick={this.handleItemClick}
+				>
+					Platform
+				</Menu.Item>
+
+					<Menu.Item
+					name='team'
+					active={activeItem === 'team'}
+					onClick={this.handleItemClick}
+				>
+					Team
 				</Menu.Item>
 				</Menu>
 			</Segment>
