@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react'
+import { Menu, Segment } from 'semantic-ui-react'
 
 export class NavMenu extends React.Component<{}, {}> {
 	state = { activeItem: "home"}
@@ -11,7 +11,8 @@ export class NavMenu extends React.Component<{}, {}> {
 		const { activeItem } = this.state
 
 		return (
-			<Menu pointing secondary size='large'>
+			<Segment inverted className='primary-background-color'>
+				<Menu inverted pointing secondary size='large' fixed='top' className='primary-background-color'>
 				<Menu.Item
 					name='home'
 					active={activeItem === 'home'}
@@ -35,7 +36,8 @@ export class NavMenu extends React.Component<{}, {}> {
 				>
 					Contact
 				</Menu.Item>
-			</Menu>
+				</Menu>
+			</Segment>
 		);
     }
 }
