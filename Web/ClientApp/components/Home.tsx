@@ -9,7 +9,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 		return <div><Segment inverted vertical center aligned className='primary-background-color'>
 			<Container>
 				<div><Image centered size='small' src={require("../../Content/LogoNoBackground.png") as string} /></div>
-				<Header size='huge' inverted icon textAlign='center'>
+				<Header inverted icon textAlign='center' className='logo-text center aligned'>
 						<Header.Content>
 							CoinJob
 						</Header.Content>
