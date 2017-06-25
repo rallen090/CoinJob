@@ -1,0 +1,8 @@
+C:\dev\CoinJob\CoinJob\bin\Debug\netcoreapp1.1\CoinJob.deps.json
+C:\dev\CoinJob\CoinJob\bin\Debug\netcoreapp1.1\CoinJob.runtimeconfig.json
+C:\dev\CoinJob\CoinJob\bin\Debug\netcoreapp1.1\CoinJob.runtimeconfig.dev.json
+C:\dev\CoinJob\CoinJob\bin\Debug\netcoreapp1.1\CoinJob.dll
+C:\dev\CoinJob\CoinJob\bin\Debug\netcoreapp1.1\CoinJob.pdb
+C:\dev\CoinJob\CoinJob\obj\Debug\netcoreapp1.1\CoinJob.AssemblyInfo.cs
+C:\dev\CoinJob\CoinJob\obj\Debug\netcoreapp1.1\CoinJob.dll
+C:\dev\CoinJob\CoinJob\obj\Debug\netcoreapp1.1\CoinJob.pdb
