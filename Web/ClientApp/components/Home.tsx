@@ -66,6 +66,35 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 							</div>
 						</Card.Content>
 				</Card>
+				<div className="ui equal width stackable internally celled grid">
+					<div className="middle aligned row">
+						<div className="column">
+							<Card fluid centered>
+								{/*<Reveal animated='rotate'>
+										<Reveal.Content visible>
+											<Image shape='circular' size='small' src={require("../../Content/LogoWithText.png") as string} />
+										</Reveal.Content>
+										<Reveal.Content hidden>
+											<Image shape='circular' size='small' src={require("../../Content/LogoWithoutText.png") as string} />
+										</Reveal.Content>
+									</Reveal>*/}
+								<Image size='big' centered src={require("../../Content/IcoPieChart.png") as string} />
+								<Card.Content>
+									<Card.Header>Fig. 1</Card.Header>
+								</Card.Content>
+							</Card>
+						</div>
+						<div className="column" >
+							<Card fluid centered>
+								<Card.Content>
+									<Card.Header>Fig. 1 shows the intended breakdown of Coinjobis once available for exchange. 50% will be open for public mining; the other 50% will be used to
+									to fund the development and operation of the platform itself. Operating the platform using the value of the Coinjobi should allow us to offer the lowest fees
+									in the market, resulting in users taking home a greater percentage of every dollar earned.</Card.Header>
+								</Card.Content>
+							</Card>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div className="mid-size-container" id="market">
 				<Header icon textAlign='center' size='huge' className='header-text'>
@@ -219,51 +248,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 					       </div>
 				       </div>
 			       </div>
-
-			       <div className="ui vertical stripe segment">
-				       <div className="ui text container">
-					       <h3 className="ui header">Breaking The Grid, Grabs Your Attention</h3>
-					       <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-					       <a className="ui large button">Read More</a>
-					       <h4 className="ui horizontal header divider">
-						       <a href="#">Case Studies</a>
-					       </h4>
-					       <h3 className="ui header">Did We Tell You About Our Bananas?</h3>
-					       <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-					       <a className="ui large button">I'm Still Quite Interested</a>
-				       </div>
+				<div className="ui inverted vertical footer segment center aligned">
+					<h4 className="ui inverted header"><Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} /></h4>
+					<p>CoinJob &copy; 2017 &nbsp; &nbsp;</p>
 			       </div>
-
-
-			       <div className="ui inverted vertical footer segment">
-				       <div className="ui container">
-					       <div className="ui stackable inverted divided equal height stackable grid">
-						       <div className="three wide column">
-							       <h4 className="ui inverted header">About</h4>
-							       <div className="ui inverted link list">
-								       <a href="#" className="item">Sitemap</a>
-								       <a href="#" className="item">Contact Us</a>
-								       <a href="#" className="item">Religious Ceremonies</a>
-								       <a href="#" className="item">Gazebo Plans</a>
-							       </div>
-						       </div>
-						       <div className="three wide column">
-							       <h4 className="ui inverted header">Services</h4>
-							       <div className="ui inverted link list">
-								       <a href="#" className="item">Banana Pre-Order</a>
-								       <a href="#" className="item">DNA FAQ</a>
-								       <a href="#" className="item">How To Access</a>
-								       <a href="#" className="item">Favorite X-Men</a>
-							       </div>
-						       </div>
-						       <div className="seven wide column">
-							       <h4 className="ui inverted header">Footer Header</h4>
-							       <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-						       </div>
-					       </div>
-				       </div>
-			       </div>
-
 			</div>;
     }
 }
