@@ -2,27 +2,50 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Step } from 'semantic-ui-react'
 
+var mainBackgroundImage = {
+	backgroundImage: `url(${require("../../Content/BackgroundComputerDark.png") as string})`,
+	backgroundSize: 'cover'
+};
+
 export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 	icoDate = new Date("July 14, 2017 12:00:00");
 
+	private downloadWhitepaper() {
+		window.open("/whitepaper", '_blank');
+	};
+
     public render() {
-		return <div><Segment inverted vertical center aligned className='primary-background-color'>
-			<Container id="home">
+		return <div>
+			<Segment inverted vertical center aligned className='primary-background-color' style={mainBackgroundImage} >
+				<br />
+				<br />
+				<br />
+				<Container>
 				<div><Image centered size='huge' src={require("../../Content/LogoWithText.png") as string} /></div>
 				<Header size='medium' inverted icon textAlign='center'>
 					<Header.Content>
 						<h2>A low-fee, distributed labor marketplace for computer-based work</h2>
 					</Header.Content>
 				</Header>
-				
-				<Card fluid>
-					<Card.Content description='Building on the well-established business model of gig-economy labor markets such as UpWork and Gigster, the CoinJob project creates a low fee, distributed labor marketplace for computer-based work featuring the Coinjobi, an Ethereum-based digital token. CoinJob is able to substantially reduce fees in the marketplace and offer automatic third-party arbitration in the event of dissatisfaction of work product. The conception of the project and its core elements are outlined in this paper.' />
-				</Card>
+					<Card fluid className='inverted-card'>
+						<Card.Content>
+						<Card.Description className='white-text'>
+							Building on the well-established business model of gig-economy labor markets such as UpWork and Gigster, the CoinJob project creates a low fee, 
+							distributed labor marketplace for computer-based work featuring the Coinjobi, an Ethereum-based digital token. CoinJob is able to substantially 
+							reduce fees in the marketplace and offer automatic third-party arbitration in the event of dissatisfaction of work product. The conception of the 
+							project and its core elements are outlined in this paper.
+						</Card.Description>
+						</Card.Content>
+					</Card>
+					<br />
+					<br />
+					<br />
+					<br />
 				<div className="ui vertical stripe quote segment">
 					<div className="ui equal width stackable internally celled grid">
 						<div className="center aligned row">
 							<div className="column">
-								<Button size='huge' icon='download' content='Whitepaper' labelPosition='left' />
+								<Button size='huge' icon='download' content='Whitepaper' labelPosition='left' onClick={this.downloadWhitepaper}/>
 							</div>
 							<div className="column">
 								<Button size='huge' color='blue' icon='mail outline' primary content='Subscribe' labelPosition='left'/>
@@ -207,12 +230,12 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 				       <div className="ui equal width stackable internally celled grid">
 					       <div className="center aligned row">
 						<div className="column">
-							<Card centered>
+							<Card centered className='inverted-card'>
 								<Image shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
 								<Card.Content>
-									<Card.Header>Max Oltersdorf</Card.Header>
-									<Card.Meta>Co-founder & President</Card.Meta>
-									<Card.Description>
+									<Card.Header className='white-text'>Max Oltersdorf</Card.Header>
+									<Card.Meta className='white-text'>Co-founder & President</Card.Meta>
+									<Card.Description className='white-text'>
 										Max Oltersdorf is Co-founder at
 										CoinJob and in charge of all
 										business-related matters. Max
@@ -226,18 +249,18 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 										three citizenships.
 									</Card.Description>
 								</Card.Content>
-								<Card.Content extra>
+								<Card.Content extra className='white-text'>
 									<a href="mailto:max@coinjob.net">max@coinjob.net</a>
 								</Card.Content>
 							</Card>
 						       </div>
 						<div className="column">
-							<Card centered>
+							<Card centered className='inverted-card'>
 								<Image shape='circular' size='medium' fluid centered src={require("../../Content/RyanBioPhoto.png") as string} />
 								<Card.Content>
-									<Card.Header>Ryan Allen</Card.Header>
-									<Card.Meta>Co-founder & CTO</Card.Meta>
-									<Card.Description>
+									<Card.Header className='white-text'>Ryan Allen</Card.Header>
+									<Card.Meta className='white-text'>Co-founder & CTO</Card.Meta>
+									<Card.Description className='white-text'>
 										<a href='http://ryanallen.io'>Ryan</a> is Co-founder at CoinJob
 										and in charge of technology-
 										related matters. Ryan has
@@ -252,7 +275,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 										League</a>.
 									</Card.Description>
 								</Card.Content>
-								<Card.Content extra>
+								<Card.Content extra className='white-text'>
 									<a href="mailto:ryan@coinjob.net">ryan@coinjob.net</a>
 								</Card.Content>
 							</Card>

@@ -50,6 +50,15 @@
 	color: cyan !important;
 }
 
+.inverted-card {
+	background: black !important;
+	box-shadow: none !important;
+}
+
+.white-text {
+	color: azure !important;
+}
+
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {

@@ -8,15 +8,18 @@ export class NavMenu extends React.Component<{}, {}> {
 
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name });
-		console.log($("#market"));
 		$("html, body").animate({ scrollTop: $('#' + name).offset().top }, 1000);
+	};
+
+	private downloadWhitepaper() {
+		window.open("/whitepaper", '_blank');
 	};
 
 	public render() {
 		const { activeItem } = this.state
 
 		return (
-			<Segment inverted className='primary-background-color'>
+			<Segment inverted className='primary-background-color' id="home">
 				<Menu inverted pointing secondary size='large' fixed='top' className='primary-background-color'>
 					<Menu.Item
 					name='home'
@@ -25,6 +28,14 @@ export class NavMenu extends React.Component<{}, {}> {
 				>
 					Home
 				</Menu.Item>
+
+					<Menu.Item
+						name='whitepaper'
+						active={activeItem === 'whitepaper'}
+						onClick={this.downloadWhitepaper}
+					>
+						Whitepaper
+					</Menu.Item>
 
 					<Menu.Item
 					name='ico'
