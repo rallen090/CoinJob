@@ -132,6 +132,12 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 		this.tryGetIp(subscriptionRequest);
 	};
 
+	private handleKeyPress = (event) => {
+		if (event.key === 'Enter') {
+			$("#subscribeButton").click();
+		}
+	}
+
     public render() {
 		return <div>
 			<Segment inverted vertical center aligned className='primary-background-color' style={mainBackgroundImage} >
@@ -168,9 +174,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 									<Button fluid size='huge' icon='download' content='Press Release' labelPosition='left' onClick={this.downloadPressRelease} />
 							</div>
 							<div className="column">
-									<Input id='firstNameInput' fluid size='large' placeholder='first name' />
+									<Input id='firstNameInput' fluid size='large' placeholder='first name' onKeyPress={this.handleKeyPress}/>
 									<br />
-									<Input id='lastNameInput' fluid size='large' placeholder='last name' />
+									<Input id='lastNameInput' fluid size='large' placeholder='last name' onKeyPress={this.handleKeyPress}/>
 									<br />
 									<Input
 										id='emailInput'
@@ -186,6 +192,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 											className: this.state.subscriptionSuccessMessage !== null ? 'disabled' : ''
 										}}
 										placeholder='email address'
+										onKeyPress={this.handleKeyPress}
 									/>
 									{this.state.subscriptionErrorMessage !== null
 										? <Message negative><Message.Header>{this.state.subscriptionErrorMessage}</Message.Header></Message>

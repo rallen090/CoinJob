@@ -6,16 +6,20 @@ CREATE TABLE coinjob.subscribers
 	emailAddress VARCHAR(255) NOT NULL,
 	firstName VARCHAR(255) NOT NULL,
 	lastName VARCHAR(255) NOT NULL,
-	ip VARCHAR(15) NULL,
+	ip VARCHAR(55) NULL,
+	countryCode VARCHAR(10) NULL,
+	city VARCHAR(255) NULL,
+	latitude INT NULL,
+	longitude INT NULL,
 	dateCreated DATETIMEOFFSET NOT NULL,
-	unsubscribed DATETIMEOFFSET BIT DEFAULT(0),
+	unsubscribed BIT DEFAULT(0),
 	CONSTRAINT pk_subscribers PRIMARY KEY(emailAddress)
 );
 GO
 
 CREATE TABLE coinjob.ipLogs
 (
-	ip VARCHAR(15) NOT NULL,
+	ip VARCHAR(55) NOT NULL,
 	visits INT NOT NULL,
 	dateInitial DATETIMEOFFSET NOT NULL,
 	dateLatest DATETIMEOFFSET NOT NULL,
@@ -23,6 +27,8 @@ CREATE TABLE coinjob.ipLogs
 	city VARCHAR(255) NULL,
 	latitude INT NULL,
 	longitude INT NULL,
-	CONSTRAINT pk_subscribers PRIMARY KEY(ip)
+	CONSTRAINT pk_ipLogs PRIMARY KEY(ip)
 );
 GO
+
+select * from sys.tables
