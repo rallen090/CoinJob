@@ -12,8 +12,8 @@ namespace Web.Data
 		{
 		}
 
-		public DbSet<Subscriber> Courses { get; set; }
-		public DbSet<IpLog> Enrollments { get; set; }
+		public DbSet<Subscriber> Subscribers { get; set; }
+		public DbSet<IpLog> IpLog { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Web.Logic;
 
 namespace Web.Controllers
 {
     public class HomeController : Controller
     {
-	    private IHostingEnvironment _env;
-	    public HomeController(IHostingEnvironment env)
+	    private readonly IHostingEnvironment _env;
+	    private readonly SubscriberManager _subscriberManager;
+
+	    public HomeController(IHostingEnvironment env, SubscriberManager subscriberManager)
 	    {
-		    _env = env;
+		    this._env = env;
+		    this._subscriberManager = subscriberManager;
 	    }
 
 		public IActionResult Index()
@@ -52,7 +56,13 @@ namespace Web.Controllers
 
 		[HttpPost, Route("subscribe")]
 	    public IActionResult Subscribe([FromBody] SubscriberModel subscriber)
-	    {
+		{
+			string errorMessage;
+			if (!this._subscriberManager.TrySubscribe(subscriber, out errorMessage))
+			{
+				return Json(new SubscriptionResponse { Success = false, Message = errorMessage });
+			}
+
 		    return Json(new SubscriptionResponse { Success = true, Message = $"{subscriber.EmailAddress} successfully subscribed!"});
 	    }
 
@@ -70,8 +80,8 @@ namespace Web.Controllers
 		public string Ip { get; set; }
 		public string CountryCode { get; set; }
 		public string City { get; set; }
-		public double? Latitude { get; set; }
-		public double? Longitude { get; set; }
+		public decimal? Latitude { get; set; }
+		public decimal? Longitude { get; set; }
 	}
 
 	public class SubscriptionResponse
