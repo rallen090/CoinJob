@@ -53,10 +53,21 @@
 .inverted-card {
 	background: rgba(0, 0, 0, 0.0) !important;
 	box-shadow: none !important;
+	border-radius: 0 !important;
 }
 
 .white-text {
 	color: azure !important;
+}
+
+.no-border {
+	background: rgba(0, 0, 0, 0.0) !important;
+	border-radius: unset !important;
+}
+
+.super-mini {
+	height: 18px;
+	width: 18px;
 }
 
 @media (max-width: 767px) {

@@ -224,7 +224,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						<Card.Content extra>
 							<div>
 								<Progress percent='75' indicating />
-								<Button fluid basic color='green'>Invest now</Button>
+								<Button disabled fluid color='green'>Invest (available following ICO)</Button>
 							</div>
 						</Card.Content>
 				</Card>
@@ -233,7 +233,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						<div className="five wide column">
 							<h3 className="ui header">Coinjobis fuel the platform so that everyone wins</h3>
 							<p>
-								Fig. 1 shows the intended breakdown of Coinjobis once available for exchange. 50% will be open for public mining; the other 50% will be used to
+								The chart on the right shows the intended breakdown of Coinjobis once available for exchange. 50% will be open for public mining; the other 50% will be used to
 								to fund the development and operation of the platform itself. Operating the platform using the value of the Coinjobi should allow us to offer the lowest fees
 								in the market, resulting in users taking home a greater percentage of every dollar earned. Investors in Coinjobi then profit from the increased value of the currency.
 							</p>
@@ -250,7 +250,6 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						</div>
 						<div className="eight wide right floated column">
 							<Image size='big' centered src={require("../../Content/IcoPieChart.png") as string} />
-							<p>Fig. 1 - Coinjobi breakdown</p>
 						</div>
 					</div>
 				</div>
@@ -265,66 +264,15 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						Companies built on the gig-economy are growing rapidly. Their reliance on traditional currencies, however, limits the payout to users of these platforms. CoinJob will fix this problem.
 					</Header.Subheader>
 				</Header>
-				<Table celled selectable>
-					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell>Company</Table.HeaderCell>
-							<Table.HeaderCell>Funding Raised</Table.HeaderCell>
-							<Table.HeaderCell>Fee</Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
-
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell>Fiverr</Table.Cell>
-							<Table.Cell>$111m</Table.Cell>
-							<Table.Cell negative>20%</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>Upwork</Table.Cell>
-							<Table.Cell>$169m</Table.Cell>
-							<Table.Cell negative>5%-20%</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>TaskRabbit</Table.Cell>
-							<Table.Cell>$37.7m</Table.Cell>
-							<Table.Cell negative>30%</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>TaskRabbit</Table.Cell>
-							<Table.Cell>$12.5m</Table.Cell>
-							<Table.Cell negative >25%</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>CoinJob</Table.Cell>
-							<Table.Cell>TBD</Table.Cell>
-							<Table.Cell positive >5%</Table.Cell>
-						</Table.Row>
-					</Table.Body>
-				</Table>
+				<br /><br />
 				<div className="ui equal width stackable internally celled grid">
 					<div className="middle aligned row">
-						<div className="five wide column">
-							<Image size='big' centered src={require("../../Content/IcoPieChart.png") as string} />
-							<p>Fig. 2 - Chart here</p>
+						<div className="column">
+							<Image size='massive' centered src={require("../../Content/MarketGrowth.png") as string} />
 						</div>
-						<div className="eight wide right floated column">
-							<h3 className="ui header">Coinjobis fuel the platform so that everyone wins</h3>
-							<p>
-								Fig. 1 shows the intended breakdown of Coinjobis once available for exchange. 50% will be open for public mining; the other 50% will be used to
-								to fund the development and operation of the platform itself. Operating the platform using the value of the Coinjobi should allow us to offer the lowest fees
-								in the market, resulting in users taking home a greater percentage of every dollar earned. Investors in Coinjobi then profit from the increased value of the currency.
-							</p>
-							<h3 className="ui header">How to get involved?</h3>
-							<p>
-								<strong>For investors</strong>, purchasing Coinjobis following the ICO will yield a share of the currency required by the CoinJob platform. As the platform grows, so does the value of the Coinjobi.
-								<br /><br />
-								<strong>For service providers</strong>, offering one's services on the new CoinJob platform will results in lower fees than currently offered by the other gig-economy software platforms tied to traditional currencies
-								resulting in higher percentages of every Coinjobi earned going straight to the providers.
-								<br /><br />
-								<strong>For service seekers</strong>, paying for expert-level services through the CoinJob platform will (a) provide a lower risk exchange of services with our automated arbitration technology and (b)
-								encourage lower prices for services as a result of lower platform fees applied to service providers.
-							</p>
+						<div className="eight right floated column">
+							<Image size='big' centered src={require("../../Content/MarketFees.png") as string} />
+							<br /><br />
 						</div>
 					</div>
 				</div>
@@ -360,13 +308,36 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						       </div>
 					       </div>
 					   </div>
-					   <div>
-					   </div>
+					<div className="ui middle aligned stackable grid container">
+						<div className="row">
+						<div className="eight wide column">
+								<Image size='massive' centered src={require("../../Content/PlatformCycle.png") as string} />
+							</div>
+						<div className="four wide right floated column">
+							<h3 className="ui header">Platform's Virtuous Cycle</h3>
+								<p>
+									The platform's foundation on the Coinjobi yields a virtuous cycle by which growth leads to even more growth. As usage grows, so too does the value of Coinjobis,
+									which feeds directly back into driving more usage.
+								</p>
+							</div>
+						</div>
+					</div>
+						
 				   </div>
 
+		       <div className="mid-size-container-inverted" id="timeline" style={darkBackgroundImage}>
+			       <Header inverted icon textAlign='center' size='huge' className='header-text'>
+				       <Header.Content>
+					       Timeline
+				       </Header.Content>
+			       </Header>
+				   <Image centered size='massive' src={require("../../Content/Timeline.png") as string} />
+				   <br />
+			       <br />
+		       </div>
 
-			<div className="mid-size-container-inverted" id="team" style={darkBackgroundImage}>
-				<Header inverted icon textAlign='center' size='huge' className='header-text'>
+			<div className="mid-size-container" id="team" style={lightBackgroundImage}>
+				<Header icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Team
 					</Header.Content>
@@ -375,11 +346,11 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					       <div className="center aligned row">
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
 								<Card.Content>
-									<Card.Header className='white-text'>Max Oltersdorf</Card.Header>
-									<Card.Meta className='white-text'>Co-founder & President</Card.Meta>
-									<Card.Description className='white-text'>
+									<Card.Header>Max Oltersdorf</Card.Header>
+									<Card.Meta>Co-founder & President</Card.Meta>
+									<Card.Description>
 										Max Oltersdorf is Co-founder at
 										CoinJob and in charge of all
 										business-related matters. Max
@@ -400,11 +371,11 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						       </div>
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image shape='circular' size='medium' fluid centered src={require("../../Content/RyanBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/RyanBioPhoto.png") as string} />
 								<Card.Content>
-									<Card.Header className='white-text'>Ryan Allen</Card.Header>
-									<Card.Meta className='white-text'>Co-founder & CTO</Card.Meta>
-									<Card.Description className='white-text'>
+									<Card.Header>Ryan Allen</Card.Header>
+									<Card.Meta>Co-founder & CTO</Card.Meta>
+									<Card.Description>
 										<a href='http://ryanallen.io'>Ryan</a> is Co-founder at CoinJob
 										and in charge of technology-
 										related matters. Ryan has
@@ -426,9 +397,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						       </div>
 					       </div>
 				       </div>
-			       </div>
+				</div>
+
 				<div className="ui inverted vertical footer segment center aligned">
-					<h4 className="ui inverted header"><Image size='small' src={require("../../Content/LogoWithoutText.png") as string} /></h4>
+					<Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} />
 					<p>CoinJob &copy; 2017 &nbsp; &nbsp;</p>
 					<div>
 						<Button circular color='facebook' icon='facebook' onClick={this.openFacebook}/>

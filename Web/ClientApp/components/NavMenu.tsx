@@ -1,7 +1,7 @@
 import * as $ from 'jquery'; 
 import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, Segment, Label, Button } from 'semantic-ui-react';
+import { Menu, Segment, Label, Button, Image } from 'semantic-ui-react';
 import Clock from './Clock';
 
 export class NavMenu extends React.Component<{}, {}> {
@@ -25,13 +25,13 @@ export class NavMenu extends React.Component<{}, {}> {
 
 		return (
 			<Segment inverted className='primary-background-color' id="home">
-				<Menu inverted pointing secondary size='large' fixed='top' className='primary-background-color'>
+				<Menu inverted pointing secondary size='huge' fixed='top' className='primary-background-color'>
 					<Menu.Item
 					name='home'
 					active={activeItem === 'home'}
 					onClick={this.handleItemClick}
 				>
-					Home
+						<Image className='super-mini' src={require("../../Content/LogoWithoutText.png") as string} />
 				</Menu.Item>
 
 					<Menu.Item
@@ -57,6 +57,14 @@ export class NavMenu extends React.Component<{}, {}> {
 				>
 					Platform
 				</Menu.Item>
+
+					<Menu.Item
+						name='timeline'
+						active={activeItem === 'timeline'}
+						onClick={this.handleItemClick}
+					>
+						Timeline
+					</Menu.Item>
 
 					<Menu.Item
 					name='team'

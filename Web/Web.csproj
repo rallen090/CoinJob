@@ -29,9 +29,13 @@
     <None Remove="Content\LogoNoBackground.png" />
     <None Remove="Content\LogoWithoutText.png" />
     <None Remove="Content\LogoWithText.png" />
+    <None Remove="Content\MarketFees.png" />
+    <None Remove="Content\MarketGrowth.png" />
     <None Remove="Content\MaxBioPhoto.png" />
     <None Remove="Content\PlatformChart.png" />
+    <None Remove="Content\PlatformCycle.png" />
     <None Remove="Content\RyanBioPhoto.png" />
+    <None Remove="Content\Timeline.png" />
     <None Remove="yarn.lock" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
@@ -76,13 +80,25 @@
     <Content Include="Content\LogoWithText.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\MarketFees.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MarketGrowth.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\MaxBioPhoto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PlatformChart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\PlatformCycle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\RyanBioPhoto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Timeline.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
