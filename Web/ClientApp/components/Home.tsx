@@ -1,17 +1,31 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Step } from 'semantic-ui-react'
-
+import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Input, Message } from 'semantic-ui-react'
+import Clock from './Clock';
 var mainBackgroundImage = {
 	backgroundImage: `url(${require("../../Content/BackgroundComputerDark.png") as string})`,
 	backgroundSize: 'cover'
 };
 
-export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
-	icoDate = new Date("July 14, 2017 12:00:00");
+export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string }> {
+	state = { subscriptionErrorMessage: null };
 
 	private downloadWhitepaper() {
 		window.open("/whitepaper", '_blank');
+	};
+
+	private openFacebook() {
+		window.open("https://www.fb.me/coinjob", '_blank');
+	};
+
+	private openTwitter() {
+		window.open("https://www.twitter.com/goCoinJob", '_blank');
+	};
+
+	private subscribe() {
+		this.setState({
+			subscriptionErrorMessage: "Error"
+		});
 	};
 
     public render() {
@@ -24,7 +38,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 				<div><Image centered size='huge' src={require("../../Content/LogoWithText.png") as string} /></div>
 				<Header size='medium' inverted icon textAlign='center'>
 					<Header.Content>
-						<h2>A low-fee, distributed labor marketplace for computer-based work</h2>
+							<h2>A low-fee, distributed labor marketplace for computer-based work</h2>
 					</Header.Content>
 				</Header>
 					<Card fluid className='inverted-card'>
@@ -43,12 +57,23 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 					<br />
 				<div className="ui vertical stripe quote segment">
 					<div className="ui equal width stackable internally celled grid">
-						<div className="center aligned row">
+						<div className="middle aligned row">
 							<div className="column">
-								<Button size='huge' icon='download' content='Whitepaper' labelPosition='left' onClick={this.downloadWhitepaper}/>
+									<Button fluid size='huge' icon='download' content='Whitepaper' labelPosition='left' onClick={this.downloadWhitepaper}/>
 							</div>
 							<div className="column">
-								<Button size='huge' color='blue' icon='mail outline' primary content='Subscribe' labelPosition='left'/>
+									<Input fluid size='large' placeholder='first name' />
+									<br />
+									<Input fluid size='large' placeholder='last name' />
+									<br />
+									<Input fluid
+										size='large'
+										action={{ color: 'yellow', labelPosition: 'left', icon: 'mail outline', content: 'Subscribe', onClick: this.subscribe.bind(this) }}
+										placeholder='email address'
+									/>
+									{this.state.subscriptionErrorMessage != null ? <Message negative>
+										                                         <Message.Header>{this.state.subscriptionErrorMessage}</Message.Header>
+									                                         </Message> : null}
 							</div>
 						</div>
 					</div>
@@ -64,7 +89,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 				<Card raised fluid>
 						<Card.Content>
 							<Card.Header>
-								35 days, 12 hours, 2 minutes, 3 seconds
+								<Clock verbose={true} />
 							</Card.Header>
 							<Card.Meta>
 								July 14th, 2017 12:00 UTC
@@ -286,6 +311,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 				<div className="ui inverted vertical footer segment center aligned">
 					<h4 className="ui inverted header"><Image size='small' src={require("../../Content/LogoWithoutText.png") as string} /></h4>
 					<p>CoinJob &copy; 2017 &nbsp; &nbsp;</p>
+					<div>
+						<Button circular color='facebook' icon='facebook' onClick={this.openFacebook}/>
+						<Button circular color='twitter' icon='twitter' onClick={this.openTwitter}/>
+					</div>
 			       </div>
 			</div>;
     }

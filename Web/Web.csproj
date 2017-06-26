@@ -17,6 +17,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="Content\BackgroundComputer.jpg" />
+    <None Remove="Content\BackgroundComputerDark.png" />
     <None Remove="Content\CoinJobLogo.jpg" />
     <None Remove="Content\CoinJobWhitePaper.pdf" />
     <None Remove="Content\IcoPieChart.png" />
@@ -33,6 +35,12 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BackgroundComputer.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\BackgroundComputerDark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\CoinJobLogo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

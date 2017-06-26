@@ -1,7 +1,8 @@
 import * as $ from 'jquery'; 
 import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, Segment } from 'semantic-ui-react';
+import { Menu, Segment, Label } from 'semantic-ui-react';
+import Clock from './Clock';
 
 export class NavMenu extends React.Component<{}, {}> {
 	state = { activeItem: "home"}
@@ -67,6 +68,14 @@ export class NavMenu extends React.Component<{}, {}> {
 					onClick={this.handleItemClick}
 				>
 					Team
+				</Menu.Item>
+
+				<Menu.Item
+					position='right'
+				>
+						<Label color='orange' size='large'>
+							ICO in <Clock verbose={false} />
+						</Label>
 				</Menu.Item>
 				</Menu>
 			</Segment>
