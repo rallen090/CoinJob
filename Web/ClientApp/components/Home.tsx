@@ -18,8 +18,8 @@ var lightBackgroundImage = {
 	backgroundSize: 'cover'
 };
 
-export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string }> {
-	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null };
+export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string, subscriptionLoading: boolean }> {
+	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };
 
 	private downloadWhitepaper() {
 		window.open("/whitepaper", '_blank');
@@ -67,11 +67,18 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 		var firstName = $("#firstNameInput").val();
 		var lastName = $("#lastNameInput").val();
 		var email = $("#emailInput").val();
+
+		this.setState({
+			subscriptionErrorMessage: null,
+			subscriptionSuccessMessage: null,
+			subscriptionLoading: true
+		});
 		
 		if (!firstName || !lastName || !email) {
 			this.setState({
 				subscriptionErrorMessage: "Please provide your name and email to subscribe to updates regarding CoinJob",
-				subscriptionSuccessMessage: null
+				subscriptionSuccessMessage: null,
+				subscriptionLoading: false
 			});
 			return;
 		}
@@ -79,15 +86,11 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 		if (!this.validateEmail(email)) {
 			this.setState({
 				subscriptionErrorMessage: "Invalid email address! Please provide an email address in a standard format (e.g. user@address.com)",
-				subscriptionSuccessMessage: null
+				subscriptionSuccessMessage: null,
+				subscriptionLoading: false
 			});
 			return;
 		}
-
-		this.setState({
-			subscriptionErrorMessage: null,
-			subscriptionSuccessMessage: null
-		});
 
 		var subscriptionRequest = (ipInfo) => $.ajax({
 			method: "POST",
@@ -111,12 +114,14 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				if (data.success) {
 					this.setState({
 						subscriptionErrorMessage: null,
-						subscriptionSuccessMessage: "You're now subscribed to updates regarding CoinJob!"
+						subscriptionSuccessMessage: "You're now subscribed to updates regarding CoinJob!",
+						subscriptionLoading: false
 					});
 				} else {
 					this.setState({
 						subscriptionErrorMessage: data.message ? data.message : "Unknown error occurred! Please try again.",
-						subscriptionSuccessMessage: null
+						subscriptionSuccessMessage: null,
+						subscriptionLoading: false
 					});
 				}
 			}.bind(this),
@@ -124,7 +129,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				console.error(status, err.toString());
 				this.setState({
 					subscriptionErrorMessage: "Unknown error occurred! Please try again.",
-					subscriptionSuccessMessage: null
+					subscriptionSuccessMessage: null,
+					subscriptionLoading: false
 				});
 			}.bind(this)
 		});
@@ -189,7 +195,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 											icon: 'mail outline',
 											content: 'Subscribe',
 											onClick: this.subscribe.bind(this),
-											className: this.state.subscriptionSuccessMessage !== null ? 'disabled' : ''
+											className: this.state.subscriptionSuccessMessage !== null || this.state.subscriptionLoading
+												? this.state.subscriptionLoading ? 'disabled loading' : 'disabled'
+												: ''
 										}}
 										placeholder='email address'
 										onKeyPress={this.handleKeyPress}
