@@ -1,7 +1,7 @@
 import * as $ from 'jquery'; 
 import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu, Segment, Label } from 'semantic-ui-react';
+import { Menu, Segment, Label, Button } from 'semantic-ui-react';
 import Clock from './Clock';
 
 export class NavMenu extends React.Component<{}, {}> {
@@ -14,6 +14,10 @@ export class NavMenu extends React.Component<{}, {}> {
 
 	private downloadWhitepaper() {
 		window.open("/whitepaper", '_blank');
+	};
+
+	private downloadPressRelease() {
+		window.open("/pressrelease", '_blank');
 	};
 
 	public render() {
@@ -29,14 +33,6 @@ export class NavMenu extends React.Component<{}, {}> {
 				>
 					Home
 				</Menu.Item>
-
-					<Menu.Item
-						name='whitepaper'
-						active={activeItem === 'whitepaper'}
-						onClick={this.downloadWhitepaper}
-					>
-						Whitepaper
-					</Menu.Item>
 
 					<Menu.Item
 					name='ico'
@@ -72,7 +68,14 @@ export class NavMenu extends React.Component<{}, {}> {
 
 				<Menu.Item
 					position='right'
-				>
+					>
+						<Button size='small' onClick={this.downloadWhitepaper}>
+							Whitepaper
+						</Button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<Button size='small' onClick={this.downloadPressRelease}>
+							Press Release
+						</Button>
 						<Label color='orange' size='large'>
 							ICO in <Clock verbose={false} />
 						</Label>

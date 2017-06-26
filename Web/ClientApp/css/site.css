@@ -51,7 +51,7 @@
 }
 
 .inverted-card {
-	background: black !important;
+	background: rgba(0, 0, 0, 0.0) !important;
 	box-shadow: none !important;
 }
 

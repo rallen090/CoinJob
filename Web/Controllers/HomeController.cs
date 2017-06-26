@@ -36,9 +36,47 @@ namespace Web.Controllers
 			return result;
 		}
 
+	    [HttpGet, Route("pressrelease")]
+	    public IActionResult PressRelease()
+	    {
+		    const string fileName = "CoinJobPressRelease.pdf";
+		    var path = Path.Combine(this._env.ContentRootPath, "Content", fileName);
+
+		    HttpContext.Response.ContentType = "application/pdf";
+		    FileContentResult result = new FileContentResult(System.IO.File.ReadAllBytes(path), "application/pdf")
+		    {
+			    FileDownloadName = $"{Path.GetFileNameWithoutExtension(fileName)}_{DateTime.Now:yyyy-MM-dd}.pdf"
+		    };
+		    return result;
+	    }
+
+		[HttpPost, Route("subscribe")]
+	    public IActionResult Subscribe([FromBody] SubscriberModel subscriber)
+	    {
+		    return Json(new SubscriptionResponse { Success = true, Message = $"{subscriber.EmailAddress} successfully subscribed!"});
+	    }
+
 		public IActionResult Error()
         {
             return View();
         }
     }
+
+	public class SubscriberModel
+	{
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string EmailAddress { get; set; }
+		public string Ip { get; set; }
+		public string CountryCode { get; set; }
+		public string City { get; set; }
+		public double? Latitude { get; set; }
+		public double? Longitude { get; set; }
+	}
+
+	public class SubscriptionResponse
+	{
+		public bool Success { get; set; }
+		public string Message { get; set; }
+	}
 }

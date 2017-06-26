@@ -4,8 +4,11 @@ GO
 CREATE TABLE coinjob.subscribers
 (
 	emailAddress VARCHAR(255) NOT NULL,
+	firstName VARCHAR(255) NOT NULL,
+	lastName VARCHAR(255) NOT NULL,
 	ip VARCHAR(15) NULL,
 	dateCreated DATETIMEOFFSET NOT NULL,
+	unsubscribed DATETIMEOFFSET BIT DEFAULT(0),
 	CONSTRAINT pk_subscribers PRIMARY KEY(emailAddress)
 );
 GO

@@ -1,17 +1,32 @@
+import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Input, Message } from 'semantic-ui-react'
+import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Input, Message, Label } from 'semantic-ui-react'
 import Clock from './Clock';
 var mainBackgroundImage = {
 	backgroundImage: `url(${require("../../Content/BackgroundComputerDark.png") as string})`,
 	backgroundSize: 'cover'
 };
 
-export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string }> {
-	state = { subscriptionErrorMessage: null };
+var darkBackgroundImage = {
+	backgroundImage: `url(${require("../../Content/BackgroundDark.png") as string})`,
+	backgroundSize: 'cover'
+};
+
+var lightBackgroundImage = {
+	backgroundImage: `url(${require("../../Content/BackgroundLight.png") as string})`,
+	backgroundSize: 'cover'
+};
+
+export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string }> {
+	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null };
 
 	private downloadWhitepaper() {
 		window.open("/whitepaper", '_blank');
+	};
+
+	private downloadPressRelease() {
+		window.open("/pressrelease", '_blank');
 	};
 
 	private openFacebook() {
@@ -22,10 +37,99 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 		window.open("https://www.twitter.com/goCoinJob", '_blank');
 	};
 
-	private subscribe() {
-		this.setState({
-			subscriptionErrorMessage: "Error"
+	private validateEmail(email) {
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(email);
+	}
+
+	private tryGetIp(callback) {
+		var apiUrl = "http://ip-api.com/json";
+
+		$.ajax({
+			method: "GET",
+			url: apiUrl,
+			cache: false,
+			success: function (data) {
+				if (!data.status || data.status !== 'success') {
+					callback(null);
+					return;
+				}
+				callback(data);
+			},
+			error: function (xhr, status, err) {
+				console.log("Could not determine IP", status, err.toString());
+				callback(null);
+			}
 		});
+	}
+
+	private subscribe() {
+		var firstName = $("#firstNameInput").val();
+		var lastName = $("#lastNameInput").val();
+		var email = $("#emailInput").val();
+		
+		if (!firstName || !lastName || !email) {
+			this.setState({
+				subscriptionErrorMessage: "Please provide your name and email to subscribe to updates regarding CoinJob",
+				subscriptionSuccessMessage: null
+			});
+			return;
+		}
+
+		if (!this.validateEmail(email)) {
+			this.setState({
+				subscriptionErrorMessage: "Invalid email address! Please provide an email address in a standard format (e.g. user@address.com)",
+				subscriptionSuccessMessage: null
+			});
+			return;
+		}
+
+		this.setState({
+			subscriptionErrorMessage: null,
+			subscriptionSuccessMessage: null
+		});
+
+		var subscriptionRequest = (ipInfo) => $.ajax({
+			method: "POST",
+			url: "/subscribe",
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			cache: false,
+			data: JSON.stringify({
+				firstName: firstName,
+				lastName: lastName,
+				emailAddress: email,
+				// add ipinfo if applicable
+				ip: ipInfo ? ipInfo.query : null,
+				countryCode: ipInfo ? ipInfo.countryCode : null,
+				city: ipInfo ? ipInfo.city : null,
+				latitude: ipInfo ? ipInfo.lat : null,
+				longitude: ipInfo ? ipInfo.lon : null
+			}),
+			success: function(data) {
+				console.log(data);
+				if (data.success) {
+					this.setState({
+						subscriptionErrorMessage: null,
+						subscriptionSuccessMessage: "You're now subscribed to updates regarding CoinJob!"
+					});
+				} else {
+					this.setState({
+						subscriptionErrorMessage: data.message ? data.message : "Unknown error occurred! Please try again.",
+						subscriptionSuccessMessage: null
+					});
+				}
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error(status, err.toString());
+				this.setState({
+					subscriptionErrorMessage: "Unknown error occurred! Please try again.",
+					subscriptionSuccessMessage: null
+				});
+			}.bind(this)
+		});
+
+		this.tryGetIp(subscriptionRequest);
 	};
 
     public render() {
@@ -59,28 +163,43 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					<div className="ui equal width stackable internally celled grid">
 						<div className="middle aligned row">
 							<div className="column">
-									<Button fluid size='huge' icon='download' content='Whitepaper' labelPosition='left' onClick={this.downloadWhitepaper}/>
+									<Button fluid size='huge' icon='download' content='Whitepaper' labelPosition='left' onClick={this.downloadWhitepaper} />
+									<br/>
+									<Button fluid size='huge' icon='download' content='Press Release' labelPosition='left' onClick={this.downloadPressRelease} />
 							</div>
 							<div className="column">
-									<Input fluid size='large' placeholder='first name' />
+									<Input id='firstNameInput' fluid size='large' placeholder='first name' />
 									<br />
-									<Input fluid size='large' placeholder='last name' />
+									<Input id='lastNameInput' fluid size='large' placeholder='last name' />
 									<br />
-									<Input fluid
+									<Input
+										id='emailInput'
+										fluid
 										size='large'
-										action={{ color: 'yellow', labelPosition: 'left', icon: 'mail outline', content: 'Subscribe', onClick: this.subscribe.bind(this) }}
+										action={{
+											id: 'subscribeButton',
+											color: 'yellow',
+											labelPosition: 'left',
+											icon: 'mail outline',
+											content: 'Subscribe',
+											onClick: this.subscribe.bind(this),
+											className: this.state.subscriptionSuccessMessage !== null ? 'disabled' : ''
+										}}
 										placeholder='email address'
 									/>
-									{this.state.subscriptionErrorMessage != null ? <Message negative>
-										                                         <Message.Header>{this.state.subscriptionErrorMessage}</Message.Header>
-									                                         </Message> : null}
+									{this.state.subscriptionErrorMessage !== null
+										? <Message negative><Message.Header>{this.state.subscriptionErrorMessage}</Message.Header></Message>
+										: null}
+								{this.state.subscriptionSuccessMessage !== null
+										? <Message positive><Message.Header>{this.state.subscriptionSuccessMessage}</Message.Header></Message>
+										: null}
 							</div>
 						</div>
 					</div>
 				</div>
 			</Container>
 		</Segment>
-			<div className="mid-size-container" id="ico">
+			<div className="mid-size-container" id="ico" style={lightBackgroundImage}>
 				<Header icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Initial Coin Offering
@@ -136,7 +255,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					</div>
 				</div>
 			</div>
-			<Segment inverted vertical center aligned className='mid-size-container-inverted' id="market">
+			<Segment inverted vertical center aligned className='mid-size-container-inverted' id="market" style={darkBackgroundImage}>
 				<Header inverted icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Market
@@ -210,7 +329,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					</div>
 				</div>
 				</Segment>
-				<div className="mid-size-container" id="platform">
+			<div className="mid-size-container" id="platform" style={lightBackgroundImage}>
 					<Header icon textAlign='center' size='huge' className='header-text'>
 						<Header.Content>
 							Platform
@@ -246,7 +365,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				   </div>
 
 
-				<div className="mid-size-container-inverted" id="team">
+			<div className="mid-size-container-inverted" id="team" style={darkBackgroundImage}>
 				<Header inverted icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Team
@@ -275,7 +394,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 									</Card.Description>
 								</Card.Content>
 								<Card.Content extra className='white-text'>
-									<a href="mailto:max@coinjob.net">max@coinjob.net</a>
+									<Label color='red' as='a' content='max@coinjob.net' icon='mail' href="mailto:max@coinjob.net" />
 								</Card.Content>
 							</Card>
 						       </div>
@@ -300,8 +419,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 										League</a>.
 									</Card.Description>
 								</Card.Content>
-								<Card.Content extra className='white-text'>
-									<a href="mailto:ryan@coinjob.net">ryan@coinjob.net</a>
+								<Card.Content extra >
+									<Label color='red' as='a' content='ryan@coinjob.net' icon='mail' href="mailto:ryan@coinjob.net"/>
 								</Card.Content>
 							</Card>
 						       </div>
