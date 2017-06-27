@@ -1,8 +1,9 @@
 import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Progress, Table, Input, Message, Label } from 'semantic-ui-react'
+import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Accordion, Table, Input, Message, Label } from 'semantic-ui-react'
 import Clock from './Clock';
+
 var mainBackgroundImage = {
 	backgroundImage: `url(${require("../../Content/BackgroundComputerDark.png") as string})`,
 	backgroundSize: 'cover'
@@ -64,9 +65,13 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 	}
 
 	private subscribe() {
-		var firstName = $("#firstNameInput").val();
-		var lastName = $("#lastNameInput").val();
-		var email = $("#emailInput").val();
+		var firstNameInitial = $("#firstNameInput").val();
+		var lastNameInitial = $("#lastNameInput").val();
+		var emailInitial = $("#emailInput").val();
+
+		var firstName = firstNameInitial ? firstNameInitial : $("#firstNameInputSecondary").val();
+		var lastName = lastNameInitial ? lastNameInitial : $("#lastNameInputSecondary").val();
+		var email = emailInitial ? emailInitial : $("#emailInputSecondary").val();
 
 		this.setState({
 			subscriptionErrorMessage: null,
@@ -240,9 +245,40 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						0.00001 XCJ - Smallest fraction
 					</Header.Content>
 					<br />
-					<Button size='huge' color='orange'>
-						Register for presale
-					</Button>
+					
+					<Accordion>
+						<Accordion.Title>
+							<Button size='huge' color='orange'>
+								Register for Presale
+							</Button>
+						</Accordion.Title>
+						<Accordion.Content>
+								<Input id='firstNameInputSecondary' fluid size='large' placeholder='first name' onKeyPress={this.handleKeyPress} />
+								<br />
+								<Input id='lastNameInputSecondary' fluid size='large' placeholder='last name' onKeyPress={this.handleKeyPress} />
+								<br />
+								<Input fluid size='large'
+									id='emailInputSecondary'
+									action={{
+										id: 'subscribeButton',
+										color: 'yellow',
+										content: 'Subscribe',
+										onClick: this.subscribe.bind(this),
+										className: this.state.subscriptionSuccessMessage !== null || this.state.subscriptionLoading
+											? this.state.subscriptionLoading ? 'disabled loading' : 'disabled'
+											: ''
+									}}
+									placeholder='email address'
+									onKeyPress={this.handleKeyPress}
+								/>
+								{this.state.subscriptionErrorMessage !== null
+									? <Message negative><Message.Header>{this.state.subscriptionErrorMessage}</Message.Header></Message>
+									: null}
+								{this.state.subscriptionSuccessMessage !== null
+									? <Message positive><Message.Header>{this.state.subscriptionSuccessMessage}</Message.Header></Message>
+									: null}
+						</Accordion.Content>
+					</Accordion>
 					<br />
 				</Header>
 				<div className="ui equal width stackable internally celled grid">
