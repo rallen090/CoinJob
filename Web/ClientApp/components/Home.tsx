@@ -154,21 +154,15 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				<div><Image centered size='huge' src={require("../../Content/LogoWithText.png") as string} /></div>
 				<Header size='medium' inverted icon textAlign='center'>
 					<Header.Content>
-							<h2>A low-fee, distributed labor marketplace for computer-based work</h2>
+							<h2 className="large-text">A low-fee, distributed labor marketplace for computer-based work</h2>
 					</Header.Content>
 				</Header>
-					<Card fluid className='inverted-card'>
-						<Card.Content>
-						<Card.Description className='white-text'>
-							Building on the well-established business model of gig-economy labor markets such as UpWork and Gigster, the CoinJob project creates a low fee, 
-							distributed labor marketplace for computer-based work featuring the Coinjobi, an Ethereum-based digital token. CoinJob is able to substantially 
-							reduce fees in the marketplace and offer automatic third-party arbitration in the event of dissatisfaction of work product. The conception of the 
-							project and its core elements are outlined in this paper.
-						</Card.Description>
-						</Card.Content>
-					</Card>
-					<br />
-					<br />
+				<br/>
+				<Header size='medium' inverted icon textAlign='center'>
+					<Header.Content className="medium-text">
+						<strong>Coinjobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
+					</Header.Content>
+				</Header>
 					<br />
 					<br />
 				<div className="ui vertical stripe quote segment">
@@ -213,62 +207,63 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					</div>
 				</div>
 			</Container>
-		</Segment>
+			</Segment>
+		       <br />
+		       <br />
 			<div className="mid-size-container" id="ico" style={lightBackgroundImage}>
 				<Header icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Initial Coin Offering
 					</Header.Content>
 				</Header>
-				<Card raised fluid>
-						<Card.Content>
-							<Card.Header>
-								<Clock verbose={true} />
-							</Card.Header>
-							<Card.Meta>
-								July 14th, 2017 12:00 UTC
-							</Card.Meta>
-							<Card.Description>
-								Coinjobis will be available for purchase on all major Ethereum exchanges upon the initial coin offering date.
-								<br/>
-								1 XCJ = 5 BTC <br />
-								1000 XCJ available<br />
-								0.0001 XCJ - Smallest fraction
-							</Card.Description>
-						</Card.Content>
-						<Card.Content extra>
-							<div>
-								<Progress percent='75' indicating />
-								<Button disabled fluid color='green'>Invest (available following ICO)</Button>
-							</div>
-						</Card.Content>
-				</Card>
+				<Header size='medium' icon textAlign='center'>
+					<Header.Content className="large-text">
+						<Clock verbose={true} /><br /><br />
+					</Header.Content>
+					<span className="medium-text">
+						July 14th, 2017 12:00 UTC
+					</span>
+				</Header>
+				<Header size='medium' icon textAlign='center'>
+					<Header.Content className="small-text">
+						Coinjobis will be available for presale at 00:00 on July 13th, 2017
+						<br />
+						Total Tokens: 2,000,000<br />
+						Pre-mined Tokens: 1,000,000<br />
+						Available during ICO: 600,000 <br />
+						Available for presale: 200,000 <br />
+						<br />
+						Presale: 1ETH = 15XCJ <br />
+						Day 1: 1ETH = 12XCJ<br />
+						Day 2 - Day 7: 1ETH = 11XCJ<br />
+						Day 8 - Day 30: 1ETH = 10XCJ <br />
+						0.00001 XCJ - Smallest fraction
+					</Header.Content>
+					<br />
+					<Button size='huge' color='orange'>
+						Register for presale
+					</Button>
+					<br />
+				</Header>
 				<div className="ui equal width stackable internally celled grid">
 					<div className="middle aligned row">
-						<div className="five wide column">
-							<h3 className="ui header">Coinjobis fuel the platform so that everyone wins</h3>
-							<p>
-								The chart on the right shows the intended breakdown of Coinjobis once available for exchange. 50% will be open for public mining; the other 50% will be used to
-								to fund the development and operation of the platform itself. Operating the platform using the value of the Coinjobi should allow us to offer the lowest fees
-								in the market, resulting in users taking home a greater percentage of every dollar earned. Investors in Coinjobi then profit from the increased value of the currency.
-							</p>
+						<div className="column">
 							<h3 className="ui header">How to get involved?</h3>
-							<p>
-								<strong>For investors</strong>, purchasing Coinjobis following the ICO will yield a share of the currency required by the CoinJob platform. As the platform grows, so does the value of the Coinjobi.
+							<p className="tiny-text">
+								<strong>Exchange Ether for Coinjobi</strong>. As the means of exchange on the CoinJob platform, increased platform activity should lead to increased demand for the token.
 								<br /><br />
-								<strong>For service providers</strong>, offering one's services on the new CoinJob platform will results in lower fees than currently offered by the other gig-economy software platforms tied to traditional currencies
-								resulting in higher percentages of every Coinjobi earned going straight to the providers.
+								<strong>For service providers</strong>, CoinJob will charge lower fees that current fiat-currency "on-demand" labor marketplaces, resulting in higher percentages of every Coinjobi earned going straight to the providers.
 								<br /><br />
-								<strong>For service seekers</strong>, paying for expert-level services through the CoinJob platform will (a) provide a lower risk exchange of services with our automated arbitration technology and (b) 
-								encourage lower prices for services as a result of lower platform fees applied to service providers.
+								<strong>For service seekers</strong>, the CoinJob platform will charge lower fees than current fiat-currency "on demand" labor marketplaces and will offer distributed automatic arbitration in the event of unsatisfactory service.
 							</p>
 						</div>
-						<div className="eight wide right floated column">
+						<div className="right floated column">
 							<Image size='big' centered src={require("../../Content/IcoPieChart.png") as string} />
 						</div>
 					</div>
 				</div>
 			</div>
+			<br /><br />
 			<Segment inverted vertical center aligned className='mid-size-container-inverted' id="market" style={darkBackgroundImage}>
 				<Header inverted icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
@@ -302,21 +297,14 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					       <div className="row">
 						       <div className="eight wide column">
 							       <h3 className="ui header">Low fee</h3>
-								   <p>
-										Current 'gig economy' offerings charge an average of 20%+ of total worker pay for the same type of small, technology-heavy project that CoinJob caters to.
-										Without the friction of traditional payment methods in the form of transaction and interchange fees, CoinJob will be able to offer lower fees than competitors.
+								   <p className="tiny-text">
+										Most 'gig economy' platforms charge 20%+ of total contract value for the same type of small, technology-heavy project that CoinJob caters to.
+										Without the friction of traditional payment methods in the form of transaction and interchange fees and with autoamtic arbitration reducing costs on the back-end, CoinJob will be able to offer lower fees than competitors.
 									</p>
-							       <h3 className="ui header">Automated arbitration</h3>
-								   <p>
-										When projects go awry, platforms bear the burden of costs in the form of a refund or arbitration. CoinJob will manage this cost more efficiently
-										with software, by crowd sourcing users to arbitrate disputes amongst themselves. This will be achieved through an automated system where
-										a random set of users is selected to act as arbiters in a dispute, with majority vote dictating the winner of the arbitration. 
+							       <h3 className="ui header">Automated Arbitration</h3>
+								   <p className="tiny-text">
+										CoinJob will offer automatic arbitration by automatically redacting key information from completed jobs in dispute and distributing the work and the job description to members across the network, who will adjudicate a decision and be rewarded with a small amount of Coinjobi for their efforts.
 									</p>
-							       <h3 className="ui header">Built for and by the people</h3>
-							       <p>
-								       The CoinJob platform will be built purely from the value of the Coinjobi, shifting funding power away from venture capital firms and into the hands of
-									   the believers and eventual users of the software.
-							       </p>
 						       </div>
 						       <div className="six wide right floated column">
 								<Image centered size='large' src={require("../../Content/LogoWithoutText.png") as string}  />
@@ -330,9 +318,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 							</div>
 						<div className="four wide right floated column">
 							<h3 className="ui header">Platform's Virtuous Cycle</h3>
-								<p>
-									The platform's foundation on the Coinjobi yields a virtuous cycle by which growth leads to even more growth. As usage grows, so too does the value of Coinjobis,
-									which feeds directly back into driving more usage.
+							<p className="tiny-text">
+									 As usage grows, Coinjobi become more in demand, which sohuld lead to increased value and increased platform attractiveness
 								</p>
 							</div>
 						</div>
@@ -364,8 +351,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Max Oltersdorf</Card.Header>
-									<Card.Meta>Co-founder & President</Card.Meta>
-									<Card.Description>
+									<Card.Meta className="tiny-text">Co-founder & President</Card.Meta>
+									<Card.Description className="tiny-text">
 										Max Oltersdorf is Co-founder at
 										CoinJob and in charge of all
 										business-related matters. Max
@@ -389,8 +376,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/RyanBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Ryan Allen</Card.Header>
-									<Card.Meta>Co-founder & CTO</Card.Meta>
-									<Card.Description>
+									<Card.Meta className="tiny-text">Co-founder & CTO</Card.Meta>
+									<Card.Description className="tiny-text">
 										<a href='http://ryanallen.io'>Ryan</a> is Co-founder at CoinJob
 										and in charge of technology-
 										related matters. Ryan has
