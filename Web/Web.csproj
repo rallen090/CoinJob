@@ -26,6 +26,7 @@
     <None Remove="Content\CoinJobLogo.jpg" />
     <None Remove="Content\CoinjobPressRelease.pdf" />
     <None Remove="Content\CoinJobWhitePaper.pdf" />
+    <None Remove="Content\favicon.ico" />
     <None Remove="Content\IcoPieChart.png" />
     <None Remove="Content\Logo.png" />
     <None Remove="Content\LogoNoBackground.png" />
@@ -63,6 +64,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\CoinJobWhitePaper.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\IcoPieChart.png">
