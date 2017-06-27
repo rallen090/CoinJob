@@ -1,0 +1,13 @@
+FROM microsoft/dotnet:latest
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+RUN apt-get install -y build-essential nodejs
+COPY . /app
+WORKDIR /app
+ 
+RUN ["dotnet", "restore"]
+RUN ["dotnet", "build"]
+ 
+EXPOSE 5000/tcp
+ENV ASPNETCORE_URLS http://*:5000
+ 
+ENTRYPOINT ["dotnet", "run"]

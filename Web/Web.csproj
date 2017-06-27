@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
+    <PackageReference Include="NETCore.MailKit" Version="1.1.1" />
     <PackageReference Include="react-dom.TypeScript.DefinitelyTyped" Version="0.0.2" />
     <PackageReference Include="React.TypeScript.DefinitelyTyped" Version="0.1.12" />
     <PackageReference Include="Semantic-UI-2.0" Version="2.1.0" />
@@ -58,7 +59,7 @@
     <Content Include="Content\CoinJobLogo.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\CoinjobPressRelease.pdf">
+    <Content Include="Content\CoinJobPressRelease.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\CoinJobWhitePaper.pdf">

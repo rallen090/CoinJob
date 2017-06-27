@@ -1,18 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Web.Data;
-using Web.Logic;
 
-namespace Web
+namespace Test
 {
     public class Startup
     {
@@ -20,7 +16,7 @@ namespace Web
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -33,13 +29,7 @@ namespace Web
         {
             // Add framework services.
             services.AddMvc();
-
-	        services.AddDbContext<WebDataContext>(options =>
-		        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-			services.AddTransient<SubscriberManager, SubscriberManager>();
-	        services.AddTransient<Emailer, Emailer>();
-		}
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -50,10 +40,7 @@ namespace Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                    HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
-                });
+                app.UseBrowserLink();
             }
             else
             {
@@ -67,10 +54,6 @@ namespace Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

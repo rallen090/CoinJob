@@ -9,17 +9,19 @@ namespace Web.Logic
     public class SubscriberManager
     {
 	    private readonly WebDataContext _context;
+	    private readonly Emailer _emailer;
 
-	    public SubscriberManager(WebDataContext context)
+		public SubscriberManager(WebDataContext context, Emailer emailer)
 	    {
 		    this._context = context;
+		    this._emailer = emailer;
 	    }
 
 	    public bool TrySubscribe(SubscriberModel subscriber, out string errorMessage)
 	    {
 		    try
 		    {
-			    if (!this.IsValidSubscriber(subscriber))
+				if (!this.IsValidSubscriber(subscriber))
 			    {
 				    errorMessage = "Invalid subscriber. Please populate the required subscriber information.";
 				    return false;
@@ -32,7 +34,7 @@ namespace Web.Logic
 				    return false;
 			    }
 
-			    var result = this._context.Add(new Subscriber
+			    this._context.Add(new Subscriber
 			    {
 				    EmailAddress = subscriber.EmailAddress,
 				    FirstName = subscriber.FirstName,
@@ -50,8 +52,9 @@ namespace Web.Logic
 			    errorMessage = null;
 			    return true;
 		    }
-		    catch (Exception)
+		    catch (Exception ex)
 		    {
+			    this._emailer.SendEmailAsync("rallen090@gmail.com", "CoinJob - Web Error", ex.ToString()).Wait();
 			    errorMessage = "Unknown error occurred subscribing. Please try again.";
 			    return false;
 		    }

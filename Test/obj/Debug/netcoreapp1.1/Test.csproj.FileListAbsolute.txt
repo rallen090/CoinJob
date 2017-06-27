@@ -1,0 +1,9 @@
+C:\dev\CoinJob\Test\bin\Debug\netcoreapp1.1\Test.deps.json
+C:\dev\CoinJob\Test\bin\Debug\netcoreapp1.1\Test.runtimeconfig.json
+C:\dev\CoinJob\Test\bin\Debug\netcoreapp1.1\Test.runtimeconfig.dev.json
+C:\dev\CoinJob\Test\bin\Debug\netcoreapp1.1\Test.dll
+C:\dev\CoinJob\Test\bin\Debug\netcoreapp1.1\Test.pdb
+C:\dev\CoinJob\Test\obj\Debug\netcoreapp1.1\Test.csprojResolveAssemblyReference.cache
+C:\dev\CoinJob\Test\obj\Debug\netcoreapp1.1\Test.AssemblyInfo.cs
+C:\dev\CoinJob\Test\obj\Debug\netcoreapp1.1\Test.dll
+C:\dev\CoinJob\Test\obj\Debug\netcoreapp1.1\Test.pdb
