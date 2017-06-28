@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Grid, Icon, Card, Accordion, Table, Input, Message, Label } from 'semantic-ui-react'
+import { Button, Segment, Container, Header, Image, Card, Accordion, Input, Message, Label } from 'semantic-ui-react'
 import Clock from './Clock';
 
 var mainBackgroundImage = {
@@ -165,7 +165,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				<br/>
 				<Header size='medium' inverted icon textAlign='center'>
 					<Header.Content className="medium-text">
-						<strong>Coinjobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
+						<strong>Jobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
 					</Header.Content>
 				</Header>
 					<br />
@@ -226,12 +226,12 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						<Clock verbose={true} /><br /><br />
 					</Header.Content>
 					<span className="medium-text">
-						July 14th, 2017 12:00 UTC
+						July 14th, 2017 00:00 UTC
 					</span>
 				</Header>
 				<Header size='medium' icon textAlign='center'>
 					<Header.Content className="small-text">
-						Coinjobis will be available for presale at 00:00 on July 13th, 2017
+						Jobis will be available for presale at 00:00 on July 13th, 2017
 						<br />
 						Total Tokens: 2,000,000<br />
 						Pre-mined Tokens: 1,000,000<br />
@@ -286,9 +286,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						<div className="column">
 							<h3 className="ui header">How to get involved?</h3>
 							<p className="tiny-text">
-								<strong>Exchange Ether for Coinjobi</strong>. As the means of exchange on the CoinJob platform, increased platform activity should lead to increased demand for the token.
+								<strong>Exchange Ether for Jobi</strong>. As the means of exchange on the CoinJob platform, increased platform activity should lead to increased demand for the token.
 								<br /><br />
-								<strong>For service providers</strong>, CoinJob will charge lower fees that current fiat-currency "on-demand" labor marketplaces, resulting in higher percentages of every Coinjobi earned going straight to the providers.
+								<strong>For service providers</strong>, CoinJob will charge lower fees than current fiat-currency "on-demand" labor marketplaces, resulting in higher percentages of every Jobi earned going straight to the providers.
 								<br /><br />
 								<strong>For service seekers</strong>, the CoinJob platform will charge lower fees than current fiat-currency "on demand" labor marketplaces and will offer distributed automatic arbitration in the event of unsatisfactory service.
 							</p>
@@ -339,7 +339,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 									</p>
 							       <h3 className="ui header">Automated Arbitration</h3>
 								   <p className="tiny-text">
-										CoinJob will offer automatic arbitration by automatically redacting key information from completed jobs in dispute and distributing the work and the job description to members across the network, who will adjudicate a decision and be rewarded with a small amount of Coinjobi for their efforts.
+										CoinJob will offer automatic arbitration by automatically redacting key information from completed jobs in dispute and distributing the work and the job description to members across the network, who will adjudicate a decision and be rewarded with a small amount of Jobi for their efforts.
 									</p>
 						       </div>
 						       <div className="six wide right floated column">
@@ -353,9 +353,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 								<Image size='massive' centered src={require("../../Content/PlatformCycle.png") as string} />
 							</div>
 						<div className="four wide right floated column">
-							<h3 className="ui header">Platform's Virtuous Cycle</h3>
+							<h3 className="ui header">Virtuous Cycle</h3>
 							<p className="tiny-text">
-									 As usage grows, Coinjobi become more in demand, which sohuld lead to increased value and increased platform attractiveness
+									 As usage grows, Jobi become more in demand, which sohuld lead to increased value and increased platform attractiveness
 								</p>
 							</div>
 						</div>
@@ -380,8 +380,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						Team
 					</Header.Content>
 				</Header>
-				       <div className="ui equal width stackable internally celled grid">
-					       <div className="center aligned row">
+				<div className="ui equal width stackable internally divided grid">
+					<div className="center aligned row advisor-section">
 						<div className="column">
 							<Card centered className='inverted-card'>
 								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
@@ -421,7 +421,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 										Engineer at Applied Predictive
 										Technologies, and is a co-
 										creator of <a href='https://www.playjuke.com'>JukeBox</a>. Ryan
-										received with degree in
+										received his degree in
 										Computer Engineering from the
 										University of Virginia and plays
 										in the <a href="http://us.battle.net/sc2/en/profile/429676/1/AceElite/">Starcraft II Master's
@@ -434,15 +434,75 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 							</Card>
 						       </div>
 					       </div>
-				       </div>
-				</div>
 
+				<Header icon textAlign='center' size='medium' className='header-text'>
+					<Header.Content className='medium-text'>
+						Strategic Advisors
+					</Header.Content>
+				</Header>
+				<br />
+				<br />
+					<div className="center aligned row advisor-section">
+						<div className="column">
+							<Card centered className='inverted-card'>
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Card.Content>
+									<Card.Header>Nicholas Jones</Card.Header>
+									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
+									<Card.Description className="tiny-text">
+										Nicholas is a Strategic Advisor at CoinJob. He currently works at a long/short equity hedge fund based in NYC, 
+										and previously worked in investment banking at Moelis & Company. Nick received his degree in Commerce (concentrating in Finance) from the University of Virginia
+										and his <a href="http://www.newyorker.com/news/sporting-scene/mo-farah-usain-bolt-and-the-world-championships">Kipsang Number</a> is over 500 meters.
+									</Card.Description>
+								</Card.Content>
+								<Card.Content extra className='white-text'>
+									<Label color='red' as='a' content='nicholas@coinjob.net' icon='mail' href="mailto:nicholas@coinjob.net" />
+								</Card.Content>
+							</Card>
+						</div>
+						<div className="column">
+							<Card centered className='inverted-card'>
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Card.Content>
+									<Card.Header>Nicholas Jones</Card.Header>
+									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
+									<Card.Description className="tiny-text">
+										Nicholas is a Strategic Advisor at CoinJob. He currently works at a long/short equity hedge fund based in NYC,
+										and previously worked in investment banking at Moelis & Company. Nick received his degree in Commerce (concentrating in Finance) from the University of Virginia
+										and his <a href="http://www.newyorker.com/news/sporting-scene/mo-farah-usain-bolt-and-the-world-championships">Kipsang Number</a> is over 500 meters.
+									</Card.Description>
+								</Card.Content>
+								<Card.Content extra className='white-text'>
+									<Label color='red' as='a' content='nicholas@coinjob.net' icon='mail' href="mailto:nicholas@coinjob.net" />
+								</Card.Content>
+							</Card>
+						</div>
+						<div className="column">
+							<Card centered className='inverted-card'>
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Card.Content>
+									<Card.Header>Nicholas Jones</Card.Header>
+									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
+									<Card.Description className="tiny-text">
+										Nicholas is a Strategic Advisor at CoinJob. He currently works at a long/short equity hedge fund based in NYC,
+										and previously worked in investment banking at Moelis & Company. Nick received his degree in Commerce (concentrating in Finance) from the University of Virginia
+										and his <a href="http://www.newyorker.com/news/sporting-scene/mo-farah-usain-bolt-and-the-world-championships">Kipsang Number</a> is over 500 meters.
+									</Card.Description>
+								</Card.Content>
+								<Card.Content extra className='white-text'>
+									<Label color='red' as='a' content='nicholas@coinjob.net' icon='mail' href="mailto:nicholas@coinjob.net" />
+								</Card.Content>
+							</Card>
+						</div>
+					</div>
+				</div>
+			</div>
 				<div className="ui inverted vertical footer segment center aligned">
 					<Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} />
-					<p>CoinJob &copy; 2017 &nbsp; &nbsp;</p>
+					<p>CoinJob &copy; 2017</p>
 					<div>
-						<Button circular color='facebook' icon='facebook' onClick={this.openFacebook}/>
-						<Button circular color='twitter' icon='twitter' onClick={this.openTwitter}/>
+						&nbsp; &nbsp;<Button circular color='facebook' icon='facebook' onClick={this.openFacebook}/>
+						&nbsp; &nbsp;&nbsp;<Button circular color='twitter' icon='twitter' onClick={this.openTwitter}/>
 					</div>
 			       </div>
 			</div>;

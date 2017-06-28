@@ -30,10 +30,10 @@ namespace Web.Controllers
 	    public IActionResult WhitePaper()
 		{
 			const string fileName = "CoinJobWhitePaper.pdf";
-			var path = Path.Combine(this._env.ContentRootPath, "Content", fileName);
+			var filePath = Directory.GetFiles(Path.Combine(this._env.ContentRootPath, "Content"), searchPattern: fileName).FirstOrDefault();
 
 			HttpContext.Response.ContentType = "application/pdf";
-			FileContentResult result = new FileContentResult(System.IO.File.ReadAllBytes(path), "application/pdf")
+			FileContentResult result = new FileContentResult(System.IO.File.ReadAllBytes(filePath), "application/pdf")
 			{
 				FileDownloadName = $"{Path.GetFileNameWithoutExtension(fileName)}_{DateTime.Now:yyyy-MM-dd}.pdf"
 			};
@@ -44,10 +44,10 @@ namespace Web.Controllers
 	    public IActionResult PressRelease()
 	    {
 		    const string fileName = "CoinJobPressRelease.pdf";
-		    var path = Path.Combine(this._env.ContentRootPath, "Content", fileName);
+		    var filePath = Directory.GetFiles(Path.Combine(this._env.ContentRootPath, "Content"), searchPattern: fileName).FirstOrDefault();
 
 		    HttpContext.Response.ContentType = "application/pdf";
-		    FileContentResult result = new FileContentResult(System.IO.File.ReadAllBytes(path), "application/pdf")
+		    FileContentResult result = new FileContentResult(System.IO.File.ReadAllBytes(filePath), "application/pdf")
 		    {
 			    FileDownloadName = $"{Path.GetFileNameWithoutExtension(fileName)}_{DateTime.Now:yyyy-MM-dd}.pdf"
 		    };

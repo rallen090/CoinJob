@@ -10,7 +10,9 @@ interface IClockState {
 export default class Clock extends React.Component<{ verbose: boolean }, IClockState> {
 	intervalId = 0;
 
-	endDate = new Date("July 14, 2017 12:00:00");
+	// setting date to 7/14/2017 @ 00:00:00 UTC
+	// NOTE: the UTC func takes months indexed at 0, thus the 6 input
+	endDate = new Date(Date.UTC(2017, 6, 14, 0, 0, 0, 0));
 	
 	public constructor(props) {
 		super(props);
@@ -39,6 +41,7 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		clearInterval(this.intervalId);
 	}
 	getTimeSpan() {
+		// note: new Date() is default already UTC
 		var currentDate = new Date();
 		var msDiff = this.endDate.getTime() - currentDate.getTime();
 		var secondsDifference = (msDiff) / 1000;

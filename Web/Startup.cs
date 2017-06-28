@@ -37,6 +37,8 @@ namespace Web
 	        services.AddDbContext<WebDataContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+	        services.Configure<AppConfig>(Configuration);
+
 			services.AddTransient<SubscriberManager, SubscriberManager>();
 	        services.AddTransient<Emailer, Emailer>();
 		}
@@ -74,4 +76,10 @@ namespace Web
             });
         }
     }
+
+	public class AppConfig
+	{
+		public string EmailUsername { get; set; }
+		public string EmailPassword { get; set; }
+	}
 }
