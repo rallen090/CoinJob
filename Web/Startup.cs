@@ -41,6 +41,7 @@ namespace Web
 
 			services.AddTransient<SubscriberManager, SubscriberManager>();
 	        services.AddTransient<Emailer, Emailer>();
+	        services.AddTransient<IpLogger, IpLogger>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

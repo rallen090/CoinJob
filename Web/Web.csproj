@@ -28,6 +28,7 @@
     <None Remove="Content\CoinJobWhitePaper.pdf" />
     <None Remove="Content\favicon.ico" />
     <None Remove="Content\IcoPieChart.png" />
+    <None Remove="Content\JakeBioPhoto.png" />
     <None Remove="Content\Logo.png" />
     <None Remove="Content\LogoNoBackground.png" />
     <None Remove="Content\LogoWithoutText.png" />
@@ -35,6 +36,7 @@
     <None Remove="Content\MarketFees.png" />
     <None Remove="Content\MarketGrowth.png" />
     <None Remove="Content\MaxBioPhoto.png" />
+    <None Remove="Content\NickBioPhoto.png" />
     <None Remove="Content\PlatformChart.png" />
     <None Remove="Content\PlatformCycle.png" />
     <None Remove="Content\RyanBioPhoto.png" />
@@ -72,6 +74,9 @@
     <Content Include="Content\IcoPieChart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\JakeBioPhoto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Logo.png">
@@ -93,6 +98,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\MaxBioPhoto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\NickBioPhoto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PlatformChart.png">

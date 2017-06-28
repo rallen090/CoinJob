@@ -20,6 +20,8 @@ var lightBackgroundImage = {
 };
 
 export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string, subscriptionLoading: boolean }> {
+	ipLogged = false;
+
 	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };
 
 	private downloadWhitepaper() {
@@ -146,6 +148,37 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 	private handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
 			$("#subscribeButton").click();
+		}
+	}
+
+	componentDidMount() {
+		if (!this.ipLogged) {
+			this.ipLogged = true;
+
+			this.tryGetIp((ipInfo) => {
+				if (ipInfo && ipInfo.query) {
+					$.ajax({
+						method: "POST",
+						url: "/log/ip",
+						contentType: 'application/json; charset=utf-8',
+						dataType: 'json',
+						cache: false,
+						data: JSON.stringify({
+							ip: ipInfo.query,
+							countryCode: ipInfo.countryCode,
+							city: ipInfo.city,
+							latitude: ipInfo.lat,
+							longitude: ipInfo.lon
+						}),
+						success: function (data) {
+							console.log(data);
+						},
+						error: function (xhr, status, err) {
+							console.error(status, err.toString());
+						}
+					});	
+				}
+			});
 		}
 	}
 
@@ -419,8 +452,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 										related matters. Ryan has
 										worked as Senior Software
 										Engineer at Applied Predictive
-										Technologies, and is a co-
-										creator of <a href='https://www.playjuke.com'>JukeBox</a>. Ryan
+										Technologies, and is a co-creator
+										of <a href='https://www.playjuke.com'>JukeBox</a>. Ryan
 										received his degree in
 										Computer Engineering from the
 										University of Virginia and plays
@@ -445,7 +478,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					<div className="center aligned row advisor-section">
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/NickBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Nicholas Jones</Card.Header>
 									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
@@ -462,40 +495,23 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						</div>
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/JakeBioPhoto.png") as string} />
 								<Card.Content>
-									<Card.Header>Nicholas Jones</Card.Header>
+									<Card.Header>Jake Miller</Card.Header>
 									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
 									<Card.Description className="tiny-text">
-										Nicholas is a Strategic Advisor at CoinJob. He currently works at a long/short equity hedge fund based in NYC,
-										and previously worked in investment banking at Moelis & Company. Nick received his degree in Commerce (concentrating in Finance) from the University of Virginia
-										and his <a href="http://www.newyorker.com/news/sporting-scene/mo-farah-usain-bolt-and-the-world-championships">Kipsang Number</a> is over 500 meters.
+										Jake Miller works as a machine learning engineer in the field of AI based fraud detection. 
+										He holds degrees in Mathematics and Computer Science from NYU's Courant Institute.
 									</Card.Description>
 								</Card.Content>
 								<Card.Content extra className='white-text'>
-									<Label color='red' as='a' content='nicholas@coinjob.net' icon='mail' href="mailto:nicholas@coinjob.net" />
-								</Card.Content>
-							</Card>
-						</div>
-						<div className="column">
-							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
-								<Card.Content>
-									<Card.Header>Nicholas Jones</Card.Header>
-									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
-									<Card.Description className="tiny-text">
-										Nicholas is a Strategic Advisor at CoinJob. He currently works at a long/short equity hedge fund based in NYC,
-										and previously worked in investment banking at Moelis & Company. Nick received his degree in Commerce (concentrating in Finance) from the University of Virginia
-										and his <a href="http://www.newyorker.com/news/sporting-scene/mo-farah-usain-bolt-and-the-world-championships">Kipsang Number</a> is over 500 meters.
-									</Card.Description>
-								</Card.Content>
-								<Card.Content extra className='white-text'>
-									<Label color='red' as='a' content='nicholas@coinjob.net' icon='mail' href="mailto:nicholas@coinjob.net" />
+									<Label color='red' as='a' content='jake@coinjob.net' icon='mail' href="mailto:jake@coinjob.net" />
 								</Card.Content>
 							</Card>
 						</div>
 					</div>
 				</div>
+				<br />
 			</div>
 				<div className="ui inverted vertical footer segment center aligned">
 					<Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} />

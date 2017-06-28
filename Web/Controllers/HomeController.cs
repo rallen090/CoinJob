@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.Logic;
 
@@ -14,11 +11,13 @@ namespace Web.Controllers
     {
 	    private readonly IHostingEnvironment _env;
 	    private readonly SubscriberManager _subscriberManager;
+	    private readonly IpLogger _ipLogger;
 
-	    public HomeController(IHostingEnvironment env, SubscriberManager subscriberManager)
+		public HomeController(IHostingEnvironment env, SubscriberManager subscriberManager, IpLogger ipLogger)
 	    {
 		    this._env = env;
 		    this._subscriberManager = subscriberManager;
+		    this._ipLogger = ipLogger;
 	    }
 
 		public IActionResult Index()
@@ -66,6 +65,14 @@ namespace Web.Controllers
 		    return Json(new SubscriptionResponse { Success = true, Message = $"{subscriber.EmailAddress} successfully subscribed!"});
 	    }
 
+	    [HttpPost, Route("log/ip")]
+	    public IActionResult Subscribe([FromBody] IpLogModel ipLog)
+	    {
+		    this._ipLogger.Log(ipLog);
+
+			return Json(new SubscriptionResponse { Success = true, Message = "Logged!" });
+	    }
+
 		public IActionResult Error()
         {
             return View();
@@ -88,5 +95,14 @@ namespace Web.Controllers
 	{
 		public bool Success { get; set; }
 		public string Message { get; set; }
+	}
+
+	public class IpLogModel
+	{
+		public string Ip { get; set; }
+		public string CountryCode { get; set; }
+		public string City { get; set; }
+		public decimal? Latitude { get; set; }
+		public decimal? Longitude { get; set; }
 	}
 }

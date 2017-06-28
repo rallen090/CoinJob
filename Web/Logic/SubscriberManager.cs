@@ -21,7 +21,6 @@ namespace Web.Logic
 	    {
 		    try
 		    {
-			    this._emailer.SendEmailAsync("rallen090@gmail.com", "CoinJob - Web Error", "TEST").Wait();
 				if (!this.IsValidSubscriber(subscriber))
 			    {
 				    errorMessage = "Invalid subscriber. Please populate the required subscriber information.";

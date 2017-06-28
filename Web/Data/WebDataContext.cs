@@ -13,7 +13,7 @@ namespace Web.Data
 		}
 
 		public DbSet<Subscriber> Subscribers { get; set; }
-		public DbSet<IpLog> IpLog { get; set; }
+		public DbSet<IpLog> IpLogs { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
