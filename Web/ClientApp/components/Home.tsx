@@ -266,15 +266,15 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					<Header.Content className="small-text">
 						Jobis will be available for presale at 00:00 on July 13th, 2017
 						<br />
-						Total Tokens: 2,000,000<br />
-						Pre-mined Tokens: 1,000,000<br />
-						Available during ICO: 600,000 <br />
-						Available for presale: 200,000 <br />
+						Total Tokens: 200,000,000<br />
+						Pre-mined Tokens: 100,000,000<br />
+						Available during ICO: 60,000,000 <br />
+						Available for presale: 20,000,000 <br />
 						<br />
-						Presale: 1ETH = 15XCJ <br />
-						Day 1: 1ETH = 12XCJ<br />
-						Day 2 - Day 7: 1ETH = 11XCJ<br />
-						Day 8 - Day 30: 1ETH = 10XCJ <br />
+						Presale: 1ETH = 1500XCJ <br />
+						Day 1: 1ETH = 1200XCJ<br />
+						Day 2 - Day 7: 1ETH = 1100XCJ<br />
+						Day 8 - Day 30: 1ETH = 1000XCJ <br />
 						0.00001 XCJ - Smallest fraction
 					</Header.Content>
 					<br />

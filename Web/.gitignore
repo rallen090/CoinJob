@@ -5,6 +5,7 @@
 
 appsettings.json
 appsettings.Development.json
+Constants.cs
 
 # User-specific files
 *.suo

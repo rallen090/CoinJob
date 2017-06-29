@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +21,7 @@ namespace Web
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
+				.SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -34,7 +36,12 @@ namespace Web
             // Add framework services.
             services.AddMvc();
 
-	        services.AddDbContext<WebDataContext>(options =>
+	        services.Configure<MvcOptions>(options =>
+	        {
+		        options.Filters.Add(new RequireHttpsAttribute());
+	        });
+
+			services.AddDbContext<WebDataContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 	        services.Configure<AppConfig>(Configuration);
@@ -75,7 +82,25 @@ namespace Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-        }
+
+	        var options = new RewriteOptions()
+		        .AddRedirectToHttps();
+
+	        app.UseRewriter(options);
+
+			//app.Use(async (context, next) =>
+			//{
+			//	if (context.Request.IsHttps)
+			//	{
+			//		await next();
+			//	}
+			//	else
+			//	{
+			//		var withHttps = "https://" + context.Request.Host.Host + ":443" + context.Request.Path;
+			//		context.Response.Redirect(withHttps);
+			//	}
+			//});
+		}
     }
 
 	public class AppConfig

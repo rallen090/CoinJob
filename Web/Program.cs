@@ -11,9 +11,12 @@ namespace Web
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
+			var host = new WebHostBuilder()
+				.UseKestrel(options => {
+		            options.UseHttps("coinjob.net_private_key.pfx", Constants.EmailPassword);
+	            })
+	            .UseUrls("http://+:5000", "https://+:5001")
+				.UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
