@@ -11,11 +11,13 @@ namespace Web
     {
         public static void Main(string[] args)
         {
-			var host = new WebHostBuilder()
-				.UseKestrel(options => {
-		            options.UseHttps("coinjob.net_private_key.pfx", Constants.EmailPassword);
-	            })
-	            .UseUrls("http://+:5000", "https://+:5001")
+			var builderByEnvironment = !IsLocal.Value
+				? new WebHostBuilder()
+					.UseKestrel(options => options.UseHttps("coinjob.net_private_key.pfx", Constants.EmailPassword))
+					.UseUrls("http://+:5000", "https://+:5001") 
+				: new WebHostBuilder().UseKestrel();
+
+			var host = builderByEnvironment
 				.UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
@@ -23,5 +25,7 @@ namespace Web
 
             host.Run();
         }
+
+		public static Lazy<bool> IsLocal = new Lazy<bool>(() => string.Equals(Environment.MachineName, "RYAN-PC", StringComparison.OrdinalIgnoreCase));
     }
 }

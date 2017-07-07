@@ -73,6 +73,12 @@ namespace Web.Controllers
 			return Json(new SubscriptionResponse { Success = true, Message = "Logged!" });
 	    }
 
+		[HttpGet, Route("health/status")]
+	    public IActionResult Status()
+	    {
+		    return Json(new { success = "true", environment = this._env.EnvironmentName });
+	    }
+
 		public IActionResult Error()
         {
             return View();

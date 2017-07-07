@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -36,10 +32,13 @@ namespace Web
             // Add framework services.
             services.AddMvc();
 
-	        services.Configure<MvcOptions>(options =>
+	        if (!Program.IsLocal.Value)
 	        {
-		        options.Filters.Add(new RequireHttpsAttribute());
-	        });
+		        services.Configure<MvcOptions>(options =>
+		        {
+			        options.Filters.Add(new RequireHttpsAttribute());
+		        });
+			}
 
 			services.AddDbContext<WebDataContext>(options =>
 		        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -64,11 +63,19 @@ namespace Web
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true
                 });
-            }
+			}
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
+			}
+
+	        if (!Program.IsLocal.Value)
+	        {
+				// force SSL
+		        var options = new RewriteOptions()
+			        .AddRedirectToHttps();
+		        app.UseRewriter(options);
+			}
 
             app.UseStaticFiles();
 
@@ -82,24 +89,6 @@ namespace Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-
-	        var options = new RewriteOptions()
-		        .AddRedirectToHttps();
-
-	        app.UseRewriter(options);
-
-			//app.Use(async (context, next) =>
-			//{
-			//	if (context.Request.IsHttps)
-			//	{
-			//		await next();
-			//	}
-			//	else
-			//	{
-			//		var withHttps = "https://" + context.Request.Host.Host + ":443" + context.Request.Path;
-			//		context.Response.Redirect(withHttps);
-			//	}
-			//});
 		}
     }
 

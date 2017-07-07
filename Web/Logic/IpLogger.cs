@@ -50,7 +50,7 @@ namespace Web.Logic
 		    }
 		    catch (Exception ex)
 		    {
-			    this._emailer.SendEmailAsync("rallen090@gmail.com", "CoinJob - Web Error - IpLog", ex.ToString()).Wait();
+			    this._emailer.SendEmailAsync(Constants.Email, "CoinJob - Web Error - IpLog", ex.ToString()).Wait();
 		    }
 	    }
 

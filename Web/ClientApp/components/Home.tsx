@@ -20,7 +20,7 @@ var lightBackgroundImage = {
 };
 
 export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string, subscriptionLoading: boolean }> {
-	ipLogged = false;
+	ipLogged = true;
 
 	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };
 
@@ -184,7 +184,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 
     public render() {
 		return <div>
-			<Segment inverted vertical center aligned className='primary-background-color' style={mainBackgroundImage} >
+			<Segment inverted vertical className='primary-background-color' style={mainBackgroundImage} >
 				<br />
 				<br />
 				<br />
@@ -333,7 +333,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				</div>
 			</div>
 			<br /><br />
-			<Segment inverted vertical center aligned className='mid-size-container-inverted' id="market" style={darkBackgroundImage}>
+			<Segment inverted vertical className='mid-size-container-inverted' id="market" style={darkBackgroundImage}>
 				<Header inverted icon textAlign='center' size='huge' className='header-text'>
 					<Header.Content>
 						Market
@@ -388,7 +388,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						<div className="four wide right floated column">
 							<h3 className="ui header">Virtuous Cycle</h3>
 							<p className="tiny-text">
-									 As usage grows, Jobi become more in demand, which sohuld lead to increased value and increased platform attractiveness
+									 As usage grows, demand for Jobis grows, which should lead to increased value and platform attractiveness
 								</p>
 							</div>
 						</div>
@@ -414,10 +414,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					</Header.Content>
 				</Header>
 				<div className="ui equal width stackable internally divided grid">
-					<div className="center aligned row advisor-section">
+					<div className="row advisor-section">
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/MaxBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' centered src={require("../../Content/MaxBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Max Oltersdorf</Card.Header>
 									<Card.Meta className="tiny-text">Co-founder & President</Card.Meta>
@@ -442,7 +442,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						       </div>
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/RyanBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' centered src={require("../../Content/RyanBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Ryan Allen</Card.Header>
 									<Card.Meta className="tiny-text">Co-founder & CTO</Card.Meta>
@@ -475,10 +475,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				</Header>
 				<br />
 				<br />
-					<div className="center aligned row advisor-section">
+					<div className="row advisor-section">
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/NickBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' centered src={require("../../Content/NickBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Nicholas Jones</Card.Header>
 									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
@@ -495,7 +495,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 						</div>
 						<div className="column">
 							<Card centered className='inverted-card'>
-								<Image className='no-border' shape='circular' size='medium' fluid centered src={require("../../Content/JakeBioPhoto.png") as string} />
+								<Image className='no-border' shape='circular' size='medium' centered src={require("../../Content/JakeBioPhoto.png") as string} />
 								<Card.Content>
 									<Card.Header>Jake Miller</Card.Header>
 									<Card.Meta className="tiny-text">Strategic Advisor</Card.Meta>
@@ -513,7 +513,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				</div>
 				<br />
 			</div>
-				<div className="ui inverted vertical footer segment center aligned">
+				<div className="ui inverted vertical footer segment">
 					<Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} />
 					<p>CoinJob &copy; 2017</p>
 					<div>
