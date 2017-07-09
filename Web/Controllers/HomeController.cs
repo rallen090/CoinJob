@@ -76,7 +76,7 @@ namespace Web.Controllers
 		[HttpGet, Route("health/status")]
 	    public IActionResult Status()
 	    {
-		    return Json(new { success = "true", environment = this._env.EnvironmentName });
+		    return Json(new { success = "true", environment = this._env.EnvironmentName, isLocal = Program.IsLocal.Value });
 	    }
 
 		public IActionResult Error()

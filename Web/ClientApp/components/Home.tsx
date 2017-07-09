@@ -513,12 +513,12 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				</div>
 				<br />
 			</div>
-				<div className="ui inverted vertical footer segment">
+				<div className="ui inverted vertical footer segment center aligned">
 					<Image centered size='small' src={require("../../Content/LogoWithoutText.png") as string} />
 					<p>CoinJob &copy; 2017</p>
 					<div>
 						&nbsp; &nbsp;<Button circular color='facebook' icon='facebook' onClick={this.openFacebook}/>
-						&nbsp; &nbsp;&nbsp;<Button circular color='twitter' icon='twitter' onClick={this.openTwitter}/>
+						&nbsp; &nbsp;<Button circular color='twitter' icon='twitter' onClick={this.openTwitter} />&nbsp;
 					</div>
 			       </div>
 			</div>;
