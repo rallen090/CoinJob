@@ -79,6 +79,30 @@ namespace Web.Controllers
 		    return Json(new { success = "true", environment = this._env.EnvironmentName, isLocal = Program.IsLocal.Value });
 	    }
 
+		[HttpPost, Route("verify/contract/crowdsale")]
+	    public IActionResult Verify([FromBody] VerifyInput input)
+	    {
+		    var verified = input.Address == Constants.CoinJobCrowdSaleAddress;
+		    return Json(new VerifyResponse{ Verified = verified, Message = verified 
+				? $"VERIFIED! You have entered the official CoinJob Crowdsale Ether contract address: '{input.Address}'"
+				: $"INVALID! the following address is not the official CoinJob Crowdsale Ether contract address: '{input.Address}'"});
+	    }
+
+		[HttpGet, Route("coin/addresses")]
+	    public IActionResult Addresses()
+	    {
+		    if (DateTime.Now < Constants.IcoStartDate)
+		    {
+			    return null;
+		    }
+
+		    return Json(new CoinJobAddresses
+		    {
+			    TokenAddress = Constants.JobiAddress,
+				CrowdSaleAddress = Constants.CoinJobCrowdSaleAddress
+		    });
+	    }
+
 		public IActionResult Error()
         {
             return View();
@@ -110,5 +134,22 @@ namespace Web.Controllers
 		public string City { get; set; }
 		public decimal? Latitude { get; set; }
 		public decimal? Longitude { get; set; }
+	}
+
+	public class VerifyInput
+	{
+		public string Address { get; set; }
+	}
+
+	public class VerifyResponse
+	{
+		public bool Verified { get; set; }
+		public string Message { get; set; }
+	}
+
+	public class CoinJobAddresses
+	{
+		public string TokenAddress { get; set; }
+		public string CrowdSaleAddress { get; set; }
 	}
 }

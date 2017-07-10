@@ -18,12 +18,13 @@ contract owned {
 
 contract token {
     /* Public variables of the token */
-    string public standard = 'CoinJob 0.5';
+    string public standard = 'Jobi 1.0';
     string public name;
     string public symbol;
-    uint8 public decimals;
+    uint8 public decimals = 5;
     uint256 public totalSupply;
     uint256 public maxSupply;
+    uint decimalMultiplier = 100000;
 
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
@@ -35,17 +36,15 @@ contract token {
     function token(
         uint256 initialSupply,
         string tokenName,
-        uint8 decimalUnits,
         string tokenSymbol
         ) {
-        balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
+        balanceOf[msg.sender] = initialSupply * decimalMultiplier;              // Give the creator all initial tokens
         // update total supply
-        totalSupply = initialSupply;                        
+        totalSupply = initialSupply * decimalMultiplier; // multiple by for decimals               
         // max is double initial supply (for mining)
-        maxSupply = initialSupply * 2;
+        maxSupply = initialSupply * 2 * decimalMultiplier;
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
-        decimals = decimalUnits;                            // Amount of decimals for display purposes
     }
 
     /* Send coins */
@@ -63,16 +62,18 @@ contract token {
     }
 }
 
-contract CoinJob is owned, token {
+contract Jobi is owned, token {
     // ICO dates (UTC in seconds)
     // End of ICO month window- new DateTimeOffset(2017, 8, 14, 0, 0, 0, TimeSpan.FromHours(0)).ToUnixTimeSeconds()
     uint256 dateIcoEnd = 1502668800;
 
     // for mining
-    bool public miningEnabled = true;
+    bool public miningEnabled = false;
     bytes32 public currentChallenge;                         // The coin starts with a challenge
     uint public timeOfLastProof;                             // Variable to keep track of when rewards were given
     uint public difficulty = 10**32;                         // Difficulty starts reasonably low
+    // multiplier initially set to 1 jobi / minute (can be adjusted later based on usage)
+    uint public miningMultiplier = 100000;
     
     // for buying/selling from the contract
     bool public buyingAndSellingEnabled = false;
@@ -85,21 +86,25 @@ contract CoinJob is owned, token {
     event FrozenFunds(address target, bool frozen);
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function CoinJob(
+    function Jobi(
         uint256 initialSupply,
         string tokenName,
-        uint8 decimalUnits,
         string tokenSymbol
-    ) token (initialSupply, tokenName, decimalUnits, tokenSymbol) {
+    ) token (initialSupply, tokenName, tokenSymbol) {
         // initialize mining date
         timeOfLastProof = now;
     }
 
-    // leaving mint functionality for potential future-use, but not intended to ever be used
+    // leaving is an option ONLY up to the max supply point - this can never mint past that max value
     function mintToken(address target, uint256 mintedAmount) onlyOwner {
+        // only allow minting up to the hard cap of the max supply
+        if((mintedAmount + totalSupply) > maxSupply){
+            throw;
+        }
+
         balanceOf[target] += mintedAmount;
         totalSupply += mintedAmount;
-        maxSupply += mintedAmount;
+
         Transfer(0, this, mintedAmount);
         Transfer(this, target, mintedAmount);
     }
@@ -116,6 +121,14 @@ contract CoinJob is owned, token {
 
     function toggleBuyingAndSelling(bool enabled) onlyOwner {
         buyingAndSellingEnabled = enabled;
+    }
+
+    function toggleMining(bool enabled) onlyOwner {
+        miningEnabled = enabled;
+    }
+
+    function setMiningMultiplier(uint multiplier) onlyOwner {
+        miningMultiplier = multiplier;
     }
 
     function buy() payable {
@@ -157,7 +170,7 @@ contract CoinJob is owned, token {
 
         uint timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
         if (timeSinceLastProof <  5 seconds) throw;         // Rewards cannot be given too quickly
-        balanceOf[msg.sender] += timeSinceLastProof / 60 seconds;  // The reward to the winner grows by the minute
+        balanceOf[msg.sender] += timeSinceLastProof / 60 seconds * miningMultiplier;  // The reward to the winner grows by the minute
 
         difficulty = difficulty * 10 minutes / timeSinceLastProof + 1;  // Adjusts the difficulty
 

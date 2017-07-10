@@ -9,6 +9,9 @@ export class NavMenu extends React.Component<{}, {}> {
 
 	handleItemClick = (e, { name }) => {
 		this.setState({ activeItem: name });
+		if (window.location.pathname !== "/") {
+			window.location.href = "/";
+		}
 		$("html, body").animate({ scrollTop: $('#' + name).offset().top }, 1000);
 	};
 
@@ -21,7 +24,7 @@ export class NavMenu extends React.Component<{}, {}> {
 	};
 
 	public render() {
-		const { activeItem } = this.state
+		const { activeItem } = this.state;
 
 		return (
 			<Segment inverted className='primary-background-color' id="home">

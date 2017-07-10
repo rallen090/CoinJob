@@ -91,9 +91,9 @@ namespace Web.Logic
 	    private void SendConfirmationEmail(string firstName, string emailAddress)
 	    {
 			// fire and forget email
-		    var icoMessage = DateTimeOffset.Now >= Constants.IcoDeadline
-			    ? $"The ICO start date ({Constants.IcoDeadline.ToUniversalTime()} UTC) has been reached! If still ongoing, you can find the CoinJob contract address for purchasing Jobis on the website."
-			    : $"The ICO officially begins {Constants.IcoDeadline.ToUniversalTime()} UTC. If you've subscribed more than a day in advance, you can expect an email as we get closer to the ICO with details on how to purchase Jobis in the pre-sale.";
+		    var icoMessage = DateTimeOffset.Now >= Constants.IcoStartDate
+			    ? $"The ICO start date ({Constants.IcoStartDate.ToUniversalTime()} UTC) has been reached! If still ongoing, you can find the CoinJob contract address for purchasing Jobis on the website."
+			    : $"The ICO officially begins {Constants.IcoStartDate.ToUniversalTime()} UTC. If you've subscribed more than a day in advance, you can expect an email as we get closer to the ICO with details on how to purchase Jobis in the pre-sale.";
 		    Task.Run(() => this._emailer.SendEmailAsync(emailAddress,
 			    "CoinJob Subscription Confirmation",
 			    $"Hey {firstName},\n\nThank you for subscribing to updates regarding CoinJob! Stay tuned for more information regarding the ICO and platform.\n\n{icoMessage}\n\n- CoinJob Team"));
