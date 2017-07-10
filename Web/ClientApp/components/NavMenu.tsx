@@ -88,7 +88,7 @@ export class NavMenu extends React.Component<{}, {}> {
 							Press Release
 						</Button>
 						<Label color='orange' size='large'>
-							ICO in <Clock verbose={false} />
+							<Clock verbose={false} />
 						</Label>
 				</Menu.Item>
 				</Menu>

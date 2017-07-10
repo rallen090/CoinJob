@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Card, Accordion, Input, Message, Label } from 'semantic-ui-react'
+import { Container, Input, Message } from 'semantic-ui-react'
 
 export default class Verify extends React.Component<RouteComponentProps<{}>, { errorMessage: string, successMessage: string, loading: boolean }> {
 	state = { errorMessage: null, successMessage: null, loading: false };
@@ -20,6 +20,15 @@ export default class Verify extends React.Component<RouteComponentProps<{}>, { e
 			successMessage: null,
 			loading: true
 		});
+
+		if (!inputAddress || inputAddress.length > 60 || inputAddress.length < 30) {
+			this.setState({
+				errorMessage: "Please provide a valid address",
+				successMessage: null,
+				loading: false
+			});
+			return;
+		}
 
 		$.ajax({
 			method: "POST",
@@ -58,7 +67,8 @@ export default class Verify extends React.Component<RouteComponentProps<{}>, { e
 	public render() {
 		return <div>
 			<br /><br /><br /><br />
-			       <Container>
+			<Container>
+				   <span>Enter the CoinJob Crowdsale contract address to verify that it is the same address that we have saved on our servers: </span>
 			<Input
 				id='addressInput'
 					fluid

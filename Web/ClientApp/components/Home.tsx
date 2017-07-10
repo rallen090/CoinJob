@@ -3,6 +3,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button, Segment, Container, Header, Image, Card, Accordion, Input, Message, Label } from 'semantic-ui-react'
 import Clock from './Clock';
+import ContractInfo from './ContractInfo';
 
 var mainBackgroundImage = {
 	backgroundImage: `url(${require("../../Content/BackgroundComputerDark.png") as string})`,
@@ -19,8 +20,36 @@ var lightBackgroundImage = {
 	backgroundSize: 'cover'
 };
 
-export default class Home extends React.Component<RouteComponentProps<{}>, { subscriptionErrorMessage: string, subscriptionSuccessMessage: string, subscriptionLoading: boolean }> {
+export default class Home extends React.Component<RouteComponentProps<{}>,
+	{
+		 subscriptionErrorMessage: string, subscriptionSuccessMessage: string, subscriptionLoading: boolean
+	}> {
 	ipLogged = true;
+
+	// setting date to 7/14/2017 @ 00:00:00 UTC
+	// NOTE: the UTC func takes months indexed at 0, thus the 6 input
+	preSaleDate = new Date(Date.UTC(2017, 6, 13, 0, 0, 0, 0));
+	startDate = new Date(Date.UTC(2017, 6, 14, 0, 0, 0, 0));
+	endDate = new Date(Date.UTC(2017, 7, 15, 0, 0, 0, 0));
+
+	isPastStartDate() {
+		// note: new Date() is default already UTC
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
+	}
+	isPastEndDate() {
+		// note: new Date() is default already UTC
+		var currentDate = new Date();
+		var msDiff = this.endDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
+	}
+	isPastPreSaleDate() {
+		// note: new Date() is default already UTC
+		var currentDate = new Date();
+		var msDiff = this.preSaleDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
+	}
 
 	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };
 
@@ -198,7 +227,13 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 				<br/>
 				<Header size='medium' inverted icon textAlign='center'>
 					<Header.Content className="medium-text">
-						<strong>Jobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
+						{!this.isPastStartDate()
+								?
+								<strong>Jobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
+								: 
+								this.isPastEndDate()
+									? <strong>Jobi (XCJ) ICO has ended! <br /><br />Thank you to all participants!</strong>
+									: <strong>Jobi (XCJ) ICO has begun! <br /><br />To participate, see ICO section below!</strong>}
 					</Header.Content>
 				</Header>
 					<br />
@@ -258,10 +293,14 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					<Header.Content className="large-text">
 						<Clock verbose={true} /><br /><br />
 					</Header.Content>
-					<span className="medium-text">
-						July 14th, 2017 00:00 UTC
-					</span>
+					{!this.isPastStartDate()
+						? 
+						<span className="medium-text">
+							July 14th, 2017 00:00 UTC
+						</span>
+						: null}
 				</Header>
+				<ContractInfo />
 				<Header size='medium' icon textAlign='center'>
 					<Header.Content className="small-text">
 						Jobis will be available for presale at 00:00 on July 13th, 2017
@@ -282,7 +321,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>, { sub
 					<Accordion>
 						<Accordion.Title>
 							<Button size='huge' color='orange'>
-								Register for Presale
+								{this.isPastPreSaleDate() ? "Subscribe to updates" : "Register for Presale"}
 							</Button>
 						</Accordion.Title>
 						<Accordion.Content>

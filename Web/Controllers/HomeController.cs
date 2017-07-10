@@ -88,8 +88,8 @@ namespace Web.Controllers
 				: $"INVALID! the following address is not the official CoinJob Crowdsale Ether contract address: '{input.Address}'"});
 	    }
 
-		[HttpGet, Route("coin/addresses")]
-	    public IActionResult Addresses()
+		[HttpGet, Route("contracts")]
+	    public IActionResult Contracts()
 	    {
 		    if (DateTime.Now < Constants.IcoStartDate)
 		    {

@@ -12,7 +12,8 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 
 	// setting date to 7/14/2017 @ 00:00:00 UTC
 	// NOTE: the UTC func takes months indexed at 0, thus the 6 input
-	endDate = new Date(Date.UTC(2017, 6, 14, 0, 0, 0, 0));
+	startDate = new Date(Date.UTC(2017, 6, 14, 0, 0, 0, 0));
+	endDate = new Date(Date.UTC(2017, 7, 14, 0, 0, 0, 0));
 	
 	public constructor(props) {
 		super(props);
@@ -30,9 +31,9 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 			currentTimeSpan: timeSpans.timeSpan,
 			currentTimeSpanVerbose: timeSpans.timeSpanVerbose
 		});
-		//if (this.state.currentCount < 1) {
-		//	clearInterval(this.intervalId);
-		//}
+		if (timeSpans.timeSpan === "0") {
+			clearInterval(this.intervalId);
+		}
 	}
 	componentDidMount() {
 		this.intervalId = setInterval(this.timer.bind(this), 100);
@@ -43,10 +44,13 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 	getTimeSpan() {
 		// note: new Date() is default already UTC
 		var currentDate = new Date();
-		var msDiff = this.endDate.getTime() - currentDate.getTime();
+		var target = this.getEndDate();
+		var msDiff = target.getTime() - currentDate.getTime();
 		var secondsDifference = (msDiff) / 1000;
 		if (secondsDifference < 0) {
-			return {timeSpan: "0", timeSpanVerbose: "ICO Date Reached!"};
+			return target === this.endDate
+				? { timeSpan: "ICO Complete", timeSpanVerbose: "ICO Complete!" }
+				: { timeSpan: "ICO in 0", timeSpanVerbose: "ICO Date Reached!" };
 		}
 		var timeDifference = this.toDateTime(secondsDifference);
 
@@ -54,14 +58,32 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		var sec = timeDifference.getSeconds();
 		var minutes = timeDifference.getMinutes();
 		var hours = timeDifference.getHours();
-		var days = Math.ceil(secondsDifference / (3600 * 24)); 
+		var days = Math.ceil(secondsDifference / (3600 * 24));
 
-		return { timeSpan: `${days}:${hours}:${minutes}:${sec}:${ms}`, timeSpanVerbose: `${days} days ${hours} hours ${minutes} minutes ${sec} seconds`};
+		var isPastStart = this.isPastStart();
+		var output = isPastStart ? `ICO close in ${days}:${hours}:${minutes}:${sec}:${ms}` : `ICO in ${days}:${hours}:${minutes}:${sec}:${ms}`;
+		var verboseOutput = isPastStart
+			? `${days} days ${hours} hours ${minutes} minutes ${sec} seconds remaining`
+			: `${days} days ${hours} hours ${minutes} minutes ${sec} seconds`;
+		return { timeSpan: output, timeSpanVerbose: verboseOutput};
 	}
 	toDateTime(secs) {
 		var t = new Date(1970, 0, 1); // Epoch
 		t.setSeconds(secs);
 		return t;
+	}
+	isPastStart() {
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
+	}
+	getEndDate() {
+		// if we have not started yet, countdown to startDate, otherwise count to end date
+		if (!this.isPastStart()) {
+			return this.startDate;
+		} else {
+			return this.endDate;
+		}
 	}
 	render() {
 		return this.props.verbose ? (
