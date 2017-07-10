@@ -56,10 +56,9 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		//var currentDate = new Date();
-		//var msDiff = this.startDate.getTime() - currentDate.getTime();
-		//return msDiff < 0;
-		return true;
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -106,7 +105,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		}
 
 		var apiKey = "UJ1PWQUVEDZ9MESTBIW6X3S57JJI4TH1CK";
-		var contractAddress = "0xaBE3d12e5518BF8266bB91B56913962ce1F77CF4"; // this.state.crowdsaleAddress
+		var contractAddress = this.state.crowdsaleAddress; // "0xaBE3d12e5518BF8266bB91B56913962ce1F77CF4"; 
 		var url = `https://api.etherscan.io/api?module=account&action=balance&address=${contractAddress}&tag=latest&apikey=${apiKey}`;
 		
 		$.ajax({
