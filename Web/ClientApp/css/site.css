@@ -90,6 +90,16 @@
 	margin-left: 0;
 }
 
+.progress-label {
+	margin-top: -14px !important;
+	margin-bottom: 0 !important;
+}
+
+.progress-label-container {
+	width: 50% !important;
+	margin: 0 auto !important;
+}
+
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
