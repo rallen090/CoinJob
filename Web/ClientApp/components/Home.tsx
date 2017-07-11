@@ -34,10 +34,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		//var currentDate = new Date();
-		//var msDiff = this.startDate.getTime() - currentDate.getTime();
-		//return msDiff < 0;
-		return true;
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -47,10 +46,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 	}
 	isPastPreSaleDate() {
 		// note: new Date() is default already UTC
-		//var currentDate = new Date();
-		//var msDiff = this.preSaleDate.getTime() - currentDate.getTime();
-		//return msDiff < 0;
-		return true;
+		var currentDate = new Date();
+		var msDiff = this.preSaleDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
 	}
 
 	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };

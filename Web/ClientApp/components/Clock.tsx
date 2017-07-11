@@ -75,10 +75,9 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		return t;
 	}
 	isPastStart() {
-		//var currentDate = new Date();
-		//var msDiff = this.startDate.getTime() - currentDate.getTime();
-		//return msDiff < 0;
-		return true;
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
 	}
 	getEndDate() {
 		// if we have not started yet, countdown to startDate, otherwise count to end date

@@ -3,6 +3,11 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Container, Input, Message } from 'semantic-ui-react'
 
+var lightBackgroundImage = {
+	backgroundImage: `url(${require("../../Content/BackgroundLight.png") as string})`,
+	backgroundSize: 'cover'
+};
+
 export default class Verify extends React.Component<RouteComponentProps<{}>, { errorMessage: string, successMessage: string, loading: boolean }> {
 	state = { errorMessage: null, successMessage: null, loading: false };
 	
@@ -67,33 +72,35 @@ export default class Verify extends React.Component<RouteComponentProps<{}>, { e
 	public render() {
 		return <div>
 			<br /><br /><br /><br />
-			<Container>
-				   <span>Enter the CoinJob Crowdsale contract address to verify that it is the same address that we have saved on our servers: </span>
-			<Input
-				id='addressInput'
-					fluid
-					size='large'
-					action={{
-				id: 'verifyButton',
-				color: 'green',
-				labelPosition: 'left',
-				icon: 'check',
-				content: 'Verify',
-				onClick: this.verifyAddress.bind(this),
-				className: this.state.successMessage !== null || this.state.loading
-					? this.state.loading ? 'disabled loading' : 'disabled'
-					: ''
-			}}
-				placeholder='0x12345'
-				onKeyPress={this.handleKeyPress}
-			/>
-			{this.state.errorMessage !== null
-				? <Message negative><Message.Header>{this.state.errorMessage}</Message.Header></Message>
-				: null}
-			{this.state.successMessage !== null
-				? <Message positive><Message.Header>{this.state.successMessage}</Message.Header></Message>
-				: null}
-			</Container>
+			<div className="mid-size-container" id="ico" style={lightBackgroundImage}>
+				<Container>
+					<span>Enter the CoinJob Crowdsale contract address to verify that it is the same address that we have saved on our servers: </span>
+					<Input
+						id='addressInput'
+						fluid
+						size='large'
+						action={{
+							id: 'verifyButton',
+							color: 'green',
+							labelPosition: 'left',
+							icon: 'check',
+							content: 'Verify',
+							onClick: this.verifyAddress.bind(this),
+							className: this.state.successMessage !== null || this.state.loading
+								? this.state.loading ? 'disabled loading' : 'disabled'
+								: ''
+						}}
+						placeholder='0x12345'
+						onKeyPress={this.handleKeyPress}
+					/>
+					{this.state.errorMessage !== null
+						? <Message negative><Message.Header>{this.state.errorMessage}</Message.Header></Message>
+						: null}
+					{this.state.successMessage !== null
+						? <Message positive><Message.Header>{this.state.successMessage}</Message.Header></Message>
+						: null}
+				</Container>
+			</div>
 		</div>;
     }
 }
