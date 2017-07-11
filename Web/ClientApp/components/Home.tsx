@@ -298,7 +298,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 		       <br />
 			<div className="mid-size-container" id="ico" style={lightBackgroundImage}>
 				<Header icon textAlign='center' size='huge' className='header-text'>
-					<Header.Content>
+					<Header.Content className='header-text'>
 						Initial Coin Offering
 					</Header.Content>
 				</Header>

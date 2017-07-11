@@ -1,7 +1,8 @@
 ﻿import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Header, Statistic, Progress, Label, Input, Button, Container } from 'semantic-ui-react'
+import { Header, Statistic, Progress, Label, Input, Button, Popup } from 'semantic-ui-react'
+import * as Clipboard from 'clipboard';
 
 interface IContractState {
 	isPastStartDate: boolean,
@@ -50,6 +51,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	componentDidMount() {
 		this.intervalId = setInterval(this.timer.bind(this), this.pollTimeInMs);
+		new Clipboard('.btn');
 	}
 	componentWillUnmount() {
 		clearInterval(this.intervalId);
@@ -167,14 +169,28 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 							</Header>
 							<Header icon textAlign='center' size='huge'>
 								<Header.Content>
-									CoinJob Crowdsale Address	
+									CoinJob Crowdsale Address
 								</Header.Content>
 							</Header>
 							<div className="copy-container">
-								<Label className='copy-label' size='big'>
+								<Label className='copy-label' size='big' id='foo'>
 								{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
 								</Label>
-								<Button floated='right' color='teal' labelPosition='right' icon='copy' content='Copy'></Button>
+								<Popup
+									trigger={
+										<Button className='btn'
+											floated='right'
+											color='yellow'
+											labelPosition='right'
+											icon='copy'
+											content='Copy'
+											data-clipboard-target="#foo">
+										</Button>
+									}
+									content='Copied to clipboard!'
+									on='click'
+									hideOnScroll
+								/>
 							</div>
 							<Header icon textAlign='center' size='huge'>
 								<Header.Subheader>

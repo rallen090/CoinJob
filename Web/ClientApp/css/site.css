@@ -37,7 +37,7 @@
 .header-text {
 	font-family: 'Arvo', serif !important;
 	font-size: 60px !important;
-	line-height: 0.5 !important;
+	line-height: 1.0em !important;
 }
 
 .mid-size-container {
@@ -90,7 +90,7 @@
 .advisor-section {
 	margin-left: 0;
 }
-.copy-container {
+.copy-button {
 	margin-bottom: 0 !important;
 	width: 50%;
 }
