@@ -100,6 +100,9 @@ export default class Verify extends React.Component<RouteComponentProps<{}>, { e
 						? <Message positive><Message.Header>{this.state.successMessage}</Message.Header></Message>
 						: null}
 				</Container>
+				<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+				<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+				<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 			</div>
 		</div>;
     }
