@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="1.0.5" />
     <PackageReference Include="clipboard.TypeScript.DefinitelyTyped" Version="0.6.9" />
     <PackageReference Include="jQuery" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />

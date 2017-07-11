@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Web.Logic;
@@ -12,12 +13,14 @@ namespace Web.Controllers
 	    private readonly IHostingEnvironment _env;
 	    private readonly SubscriberManager _subscriberManager;
 	    private readonly IpLogger _ipLogger;
+	    private readonly IRateLimitCounterStore _rateLimiter;
 
-		public HomeController(IHostingEnvironment env, SubscriberManager subscriberManager, IpLogger ipLogger)
+		public HomeController(IHostingEnvironment env, SubscriberManager subscriberManager, IpLogger ipLogger, IRateLimitCounterStore rateLimiter)
 	    {
 		    this._env = env;
 		    this._subscriberManager = subscriberManager;
 		    this._ipLogger = ipLogger;
+		    this._rateLimiter = rateLimiter;
 	    }
 
 		public IActionResult Index()
@@ -75,8 +78,14 @@ namespace Web.Controllers
 
 		[HttpGet, Route("health/status")]
 	    public IActionResult Status()
-	    {
-		    return Json(new { success = "true", environment = this._env.EnvironmentName, isLocal = Program.IsLocal.Value });
+		{
+			var ip = this.Request.HttpContext.Connection.RemoteIpAddress.ToString();
+			return Json(new {
+				success = "true",
+				environment = this._env.EnvironmentName,
+				isLocal = Program.IsLocal.Value,
+				ip,
+				hasEntry = this._rateLimiter.Exists(ip) });
 	    }
 
 		[HttpPost, Route("verify/contract/crowdsale")]

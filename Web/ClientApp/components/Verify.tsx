@@ -26,7 +26,7 @@ export default class Verify extends React.Component<RouteComponentProps<{}>, { e
 			loading: true
 		});
 
-		if (!inputAddress || inputAddress.length > 60 || inputAddress.length < 30) {
+		if (!inputAddress || inputAddress.length !== 42) {
 			this.setState({
 				errorMessage: "Please provide a valid address",
 				successMessage: null,

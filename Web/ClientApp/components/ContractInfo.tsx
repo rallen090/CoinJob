@@ -1,7 +1,7 @@
 ﻿import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Header, Statistic, Progress, Label, Input, Button, Popup } from 'semantic-ui-react'
+import { Header, Statistic, Progress, Label, Icon, Button, Popup } from 'semantic-ui-react'
 import * as Clipboard from 'clipboard';
 
 interface IContractState {
@@ -119,7 +119,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 					this.intervalId = setInterval(this.timer.bind(this), 10000 /* poll every 10 sec once we've acquired contract info */);
 
 					var weiRaised = parseInt(data.result);
-					var ethRaised = weiRaised / 1000000000000000000;
+					var ethRaised = weiRaised / 1000000000000000000.0;
 					this.setState({
 						isPastStartDate: this.state.isPastStartDate,
 						isPastEndDate: this.state.isPastEndDate,
@@ -142,6 +142,13 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	highlightAddress() {
 		$(this).select();
+	}
+	getMinPercentage() {
+		// 1000 jobis * 100% - conservative estimate
+		return (this.state.ethRaised * 100000.0 / 20300000.0);
+	}
+	getMaxPercentage() {
+		return (this.state.ethRaised * 100000.0 / 60000000.0);
 	}
 	render() {
 		return this.state.isPastStartDate ? (
@@ -172,7 +179,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								</Header.Content>
 							</Header>
 							<div className="copy-container">
-								<Label className='copy-label' size='big' id='foo'>
+								<Label className='copy-label' size='big' id='address-copy'>
 								{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
 								</Label>
 								<Popup
@@ -183,7 +190,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 											labelPosition='right'
 											icon='copy'
 											content='Copy'
-											data-clipboard-target="#foo">
+											data-clipboard-target="#address-copy">
 										</Button>
 									}
 									content='Copied to clipboard!'
@@ -208,13 +215,17 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								{ label: 'ETH Raised', value: this.numberWithCommas(this.state.ethRaised.toFixed(5)) },
 								{ label: 'XCJ Sold (approximated)', value: `${this.numberWithCommas((this.state.ethRaised * 1000).toFixed(5))}` }
 							]} size='large' />
-							<Progress color="orange" percent={(this.state.ethRaised * 100000.0 / 20300000.0) /* 1000 jobis * 100% */} indicating />
+							<Progress color="orange" percent={(this.getMinPercentage())} indicating />
 							<div className="progress-label-container">
-								<Label className="progress-label" size='big' basic color='orange' pointing>MIN funding goal of 20.3mm XCJ</Label>
-								<Label className="progress-label" size='big' basic color='red' pointing='below'>MAX funding goal of 60mm XCJ</Label>
+								<Label className="progress-label" size='big' basic color={(this.getMinPercentage() >= 100 ? "green" : "orange")} pointing>
+									{(this.getMinPercentage() >= 100 ? "MIN goal reached! (20.3mm XCJ)" : "MIN funding goal of 20.3mm XCJ")}
+								</Label>
+								<Label className="progress-label" size='big' basic color={(this.getMaxPercentage() >= 100 ? "green" : "red")} pointing='below'>
+									{(this.getMaxPercentage() >= 100 ? "MAX goal reached! (60mm XCJ)" : "MAX funding goal of 60mm XCJ")}
+								</Label>
 							</div>
 							<br/>
-							<Progress color="red" percent={(this.state.ethRaised * 100000.0 / 60000000.0)} indicating>
+							<Progress color="red" percent={(this.getMaxPercentage())} indicating>
 							</Progress>
 						</div>
 					)

@@ -233,7 +233,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 					<Header.Content className="medium-text">
 						{!this.isPastStartDate()
 								?
-								<strong>Jobi (XCJ) ICO starts 00:00 UTC July 14th. <br /><br />50% bonus for presale starts 00:00 UTC July 13th.</strong>
+								<strong>Jobi (XCJ) ICO starts 00:00 UTC July 14th.
+									<br /><br />
+									50% bonus for presale {this.isPastPreSaleDate() ? " is under way!" : " starts 00:00 UTC July 13th."}
+								</strong>
 								: 
 								this.isPastEndDate()
 									? <strong>Jobi (XCJ) ICO has ended! <br /><br />Thank you to all participants!</strong>
