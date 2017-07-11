@@ -1,7 +1,7 @@
 ﻿import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Header, Statistic, Progress, Label, Container } from 'semantic-ui-react'
+import { Header, Statistic, Progress, Label, Input, Button, Container } from 'semantic-ui-react'
 
 interface IContractState {
 	isPastStartDate: boolean,
@@ -139,6 +139,9 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		var decimals = parts.length > 1 ? "." + parts[1] : "";
 		return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + decimals;
 	}
+	highlightAddress() {
+		$(this).select();
+	}
 	render() {
 		return this.state.isPastStartDate ? (
 			<div>
@@ -164,13 +167,19 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 							</Header>
 							<Header icon textAlign='center' size='huge'>
 								<Header.Content>
-									CoinJob Crowdsale Address:
-									<Container fluid>{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
-									</Container>
+									CoinJob Crowdsale Address	
 								</Header.Content>
+							</Header>
+							<div className="copy-container">
+								<Label className='copy-label' size='big'>
+								{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
+								</Label>
+								<Button floated='right' color='teal' labelPosition='right' icon='copy' content='Copy'></Button>
+							</div>
+							<Header icon textAlign='center' size='huge'>
 								<Header.Subheader>
 									To participate in the ICO and purchase Jobis, send ETH to this Ethereum contract address. You can use the <a href="https://github.com/ethereum/mist/releases">Ethereum Wallet</a> to do this.
-									<br/>You can verify this address against our servers using our <a href="/verify">verify endpoint</a>, which checks
+									<br />You can verify this address against our servers using our <a href="/verify">verify endpoint</a>, which checks
 									the address against our server-side address.
 								</Header.Subheader>
 							</Header>
