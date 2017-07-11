@@ -84,6 +84,7 @@
 
 .large-text {
 	font-size: 4rem;
+	line-height: 1em;
 }
 
 .advisor-section {
@@ -93,10 +94,11 @@
 .progress-label {
 	margin-top: -14px !important;
 	margin-bottom: 0 !important;
+	width: 49%;
 }
 
 .progress-label-container {
-	width: 50% !important;
+	width: 100% !important;
 	margin: 0 auto !important;
 }
 

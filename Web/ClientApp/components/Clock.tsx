@@ -61,7 +61,9 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		var days = Math.ceil(secondsDifference / (3600 * 24));
 
 		var isPastStart = this.isPastStart();
-		var output = isPastStart ? `ICO close in ${days}:${hours}:${minutes}:${sec}:${ms}` : `ICO in ${days}:${hours}:${minutes}:${sec}:${ms}`;
+		var output = isPastStart
+			? `ICO close in ${days}:${this.padNumber(hours)}:${this.padNumber(minutes)}:${this.padNumber(sec)}:${ms}`
+			: `ICO in ${this.padNumber(days)}:${this.padNumber(hours)}:${this.padNumber(minutes)}:${this.padNumber(sec)}:${ms}`;
 		var verboseOutput = isPastStart
 			? `${days} days ${hours} hours ${minutes} minutes ${sec} seconds remaining`
 			: `${days} days ${hours} hours ${minutes} minutes ${sec} seconds`;
@@ -73,9 +75,10 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		return t;
 	}
 	isPastStart() {
-		var currentDate = new Date();
-		var msDiff = this.startDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.startDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 	getEndDate() {
 		// if we have not started yet, countdown to startDate, otherwise count to end date
@@ -84,6 +87,9 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		} else {
 			return this.endDate;
 		}
+	}
+	padNumber(number) {
+		return String("0" + number).slice(-2);
 	}
 	render() {
 		return this.props.verbose ? (

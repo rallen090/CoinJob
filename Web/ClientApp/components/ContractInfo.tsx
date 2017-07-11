@@ -1,7 +1,7 @@
 ﻿import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Header, Statistic, Progress, Label, Segment } from 'semantic-ui-react'
+import { Header, Statistic, Progress, Label, Container } from 'semantic-ui-react'
 
 interface IContractState {
 	isPastStartDate: boolean,
@@ -49,16 +49,17 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		}
 	}
 	componentDidMount() {
-		this.intervalId = setInterval(this.timer.bind(this), this.pollTimeInMs /* poll every 30 sec */);
+		this.intervalId = setInterval(this.timer.bind(this), this.pollTimeInMs);
 	}
 	componentWillUnmount() {
 		clearInterval(this.intervalId);
 	}
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		var currentDate = new Date();
-		var msDiff = this.startDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.startDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -80,7 +81,6 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
-					console.log(data);
 					if (data && data.crowdSaleAddress) {
 						this.setState({
 							isPastStartDate: this.state.isPastStartDate,
@@ -105,7 +105,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		}
 
 		var apiKey = "UJ1PWQUVEDZ9MESTBIW6X3S57JJI4TH1CK";
-		var contractAddress = this.state.crowdsaleAddress; // "0xaBE3d12e5518BF8266bB91B56913962ce1F77CF4"; 
+		var contractAddress = this.state.crowdsaleAddress;
 		var url = `https://api.etherscan.io/api?module=account&action=balance&address=${contractAddress}&tag=latest&apikey=${apiKey}`;
 		
 		$.ajax({
@@ -114,7 +114,9 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 			cache: false,
 			success: function (data) {
 				if (data && data.result) {
-					this.pollTimeInMs = 10000;
+					clearInterval(this.intervalId);
+					this.intervalId = setInterval(this.timer.bind(this), 10000 /* poll every 10 sec once we've acquired contract info */);
+
 					var weiRaised = parseInt(data.result);
 					var ethRaised = weiRaised / 1000000000000000000;
 					this.setState({
@@ -122,7 +124,8 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 						isPastEndDate: this.state.isPastEndDate,
 						crowdsaleAddress: this.state.crowdsaleAddress,
 						jobiAddress: data.jobiAddress,
-						ethRaised: ethRaised
+						// handle divide be zero
+						ethRaised: ethRaised === 0 ? 0.000000001 : ethRaised
 					});
 				}
 			}.bind(this),
@@ -161,10 +164,12 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 							</Header>
 							<Header icon textAlign='center' size='huge'>
 								<Header.Content>
-									CoinJob Crowdsale Address: {this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
+									CoinJob Crowdsale Address:
+									<Container fluid>{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
+									</Container>
 								</Header.Content>
 								<Header.Subheader>
-									To participate in the ICO and purchase Jobis, send ETH to this contract address using the <a href="https://github.com/ethereum/mist/releases">Ethereum Wallet</a>.
+									To participate in the ICO and purchase Jobis, send ETH to this Ethereum contract address. You can use the <a href="https://github.com/ethereum/mist/releases">Ethereum Wallet</a> to do this.
 									<br/>You can verify this address against our servers using our <a href="/verify">verify endpoint</a>, which checks
 									the address against our server-side address.
 								</Header.Subheader>
@@ -179,13 +184,13 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								{ label: 'ETH Raised', value: this.numberWithCommas(this.state.ethRaised.toFixed(5)) },
 								{ label: 'XCJ Sold (approximated)', value: `${this.numberWithCommas((this.state.ethRaised * 1000).toFixed(5))}` }
 							]} size='large' />
-							<Progress color="orange" percent={(this.state.ethRaised * 1000 / 20300000)} indicating />
+							<Progress color="orange" percent={(this.state.ethRaised * 100000.0 / 20300000.0) /* 1000 jobis * 100% */} indicating />
 							<div className="progress-label-container">
-								<Label className="progress-label" size='big' basic color='orange' pointing>Progress to min funding goal of 20.3mm XCJ</Label>
-								<Label className="progress-label" size='big' basic color='red' pointing='below'>Progress to max funding goal of 60mm XCJ</Label>
+								<Label className="progress-label" size='big' basic color='orange' pointing>MIN funding goal of 20.3mm XCJ</Label>
+								<Label className="progress-label" size='big' basic color='red' pointing='below'>MAX funding goal of 60mm XCJ</Label>
 							</div>
 							<br/>
-							<Progress color="red" percent={(this.state.ethRaised * 1000 / 60000000)} indicating>
+							<Progress color="red" percent={(this.state.ethRaised * 100000.0 / 60000000.0)} indicating>
 							</Progress>
 						</div>
 					)

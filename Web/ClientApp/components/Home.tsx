@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Segment, Container, Header, Image, Card, Accordion, Input, Message, Label } from 'semantic-ui-react'
+import { Button, Segment, Container, Header, Image, Card, Accordion, Input, Message, Label, Icon } from 'semantic-ui-react'
 import Clock from './Clock';
 import ContractInfo from './ContractInfo';
 
@@ -34,9 +34,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		var currentDate = new Date();
-		var msDiff = this.startDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.startDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -46,9 +47,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 	}
 	isPastPreSaleDate() {
 		// note: new Date() is default already UTC
-		var currentDate = new Date();
-		var msDiff = this.preSaleDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.preSaleDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 
 	state = { subscriptionErrorMessage: null, subscriptionSuccessMessage: null, subscriptionLoading: false };
@@ -180,6 +182,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 		}
 	}
 
+	handleItemClick = (e, { name }) => {
+		$("html, body").animate({ scrollTop: $('#' + name).offset().top }, 1000);
+	};
+
 	componentDidMount() {
 		if (!this.ipLogged) {
 			this.ipLogged = true;
@@ -233,7 +239,14 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 								: 
 								this.isPastEndDate()
 									? <strong>Jobi (XCJ) ICO has ended! <br /><br />Thank you to all participants!</strong>
-									: <strong>Jobi (XCJ) ICO has begun! <br /><br />To participate, see ICO section below!</strong>}
+									: <div>
+										<strong>Jobi (XCJ) ICO has begun! <br /><br />To participate, see ICO section below!</strong>
+										<br />
+										<br />
+										<Button name='ico' onClick={this.handleItemClick} size='massive' color='orange'>
+											Invest now!
+										</Button>
+									</div>}
 					</Header.Content>
 				</Header>
 					<br />
@@ -303,7 +316,11 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 				<ContractInfo />
 				<Header size='medium' icon textAlign='center'>
 					<Header.Content className="small-text">
-						Jobis will be available for presale at 00:00 on July 13th, 2017
+						{!this.isPastPreSaleDate()
+							?
+							"Jobis will be available for presale at 00:00 on July 13th, 2017"
+							: null}
+						
 						<br />
 						Total Tokens: 200,000,000<br />
 						Pre-mined Tokens: 100,000,000<br />
@@ -452,7 +469,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 						Team
 					</Header.Content>
 				</Header>
-				<div className="ui equal width stackable internally divided grid">
+				<div className="ui equal width stackable internally divided grid center aligned">
 					<div className="row advisor-section">
 						<div className="column">
 							<Card centered className='inverted-card'>
