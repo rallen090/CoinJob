@@ -369,6 +369,8 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 									: null}
 						</Accordion.Content>
 					</Accordion>
+					<Header.Content>
+					</Header.Content>
 					<br />
 				</Header>
 				<div className="ui equal width stackable internally celled grid">
