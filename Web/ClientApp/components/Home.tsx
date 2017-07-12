@@ -320,7 +320,7 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 						{!this.isPastPreSaleDate()
 							?
 							"Jobis will be available for presale at 00:00 on July 13th, 2017"
-							: null}
+							: "Presale now live to those who subscribed prior to 00:00 July 13th, 2017!"}
 						
 						<br />
 						Total Tokens: 200,000,000<br />

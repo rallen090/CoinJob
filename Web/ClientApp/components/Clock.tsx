@@ -58,7 +58,7 @@ export default class Clock extends React.Component<{ verbose: boolean }, IClockS
 		var sec = timeDifference.getSeconds();
 		var minutes = timeDifference.getMinutes();
 		var hours = timeDifference.getHours();
-		var days = Math.ceil(secondsDifference / (3600 * 24));
+		var days = Math.floor(secondsDifference / (3600 * 24));
 
 		var isPastStart = this.isPastStart();
 		var output = isPastStart

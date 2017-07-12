@@ -129,7 +129,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 						isPastStartDate: this.state.isPastStartDate,
 						isPastEndDate: this.state.isPastEndDate,
 						crowdsaleAddress: this.state.crowdsaleAddress,
-						jobiAddress: data.jobiAddress,
+						jobiAddress: this.state.jobiAddress,
 						// handle divide be zero
 						ethRaised: ethRaised === 0 ? 0.000000001 : ethRaised,
 						xcjRaised: this.state.xcjRaised
@@ -156,9 +156,9 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 						isPastStartDate: this.state.isPastStartDate,
 						isPastEndDate: this.state.isPastEndDate,
 						crowdsaleAddress: this.state.crowdsaleAddress,
-						jobiAddress: data.jobiAddress,
+						jobiAddress: this.state.jobiAddress,
 						ethRaised: this.state.ethRaised,
-						xcjRaised: jobiRaised === 0 ? 0.000000001 : jobiRaised,
+						xcjRaised: jobiRaised === 0 ? 0.000000001 : jobiRaised
 					});
 				}
 			}.bind(this),
