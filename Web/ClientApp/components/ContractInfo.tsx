@@ -10,6 +10,7 @@ interface IContractState {
 	crowdsaleAddress: string,
 	jobiAddress: string,
 	ethRaised: number,
+	xcjRaised: number,
 }
 
 export default class ContractInfo extends React.Component<{}, IContractState> {
@@ -30,7 +31,8 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 			isPastEndDate: hasEnded,
 			crowdsaleAddress: null,
 			jobiAddress: null,
-			ethRaised: null
+			ethRaised: null,
+			xcjRaised: null,
 		}
 	}
 	timer() {
@@ -45,7 +47,8 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 				isPastEndDate: hasEnded,
 				crowdsaleAddress: null,
 				jobiAddress: null,
-				ethRaised: null
+				ethRaised: null,
+				xcjRaised: null,
 			});	
 		}
 	}
@@ -88,7 +91,8 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 							isPastEndDate: this.state.isPastEndDate,
 							crowdsaleAddress: data.crowdSaleAddress,
 							jobiAddress: data.jobiAddress,
-							ethRaised: this.state.ethRaised
+							ethRaised: this.state.ethRaised,
+							xcjRaised: this.state.xcjRaised
 						});
 					}
 				}.bind(this),
@@ -108,15 +112,16 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		var apiKey = "UJ1PWQUVEDZ9MESTBIW6X3S57JJI4TH1CK";
 		var contractAddress = this.state.crowdsaleAddress;
 		var url = `https://api.etherscan.io/api?module=account&action=balance&address=${contractAddress}&tag=latest&apikey=${apiKey}`;
-		
+
 		$.ajax({
 			method: "GET",
 			url: url,
 			cache: false,
-			success: function (data) {
+			success: function(data) {
 				if (data && data.result) {
 					clearInterval(this.intervalId);
-					this.intervalId = setInterval(this.timer.bind(this), 10000 /* poll every 10 sec once we've acquired contract info */);
+					this.intervalId = setInterval(this.timer.bind(this),
+						10000 /* poll every 10 sec once we've acquired contract info */);
 
 					var weiRaised = parseInt(data.result);
 					var ethRaised = weiRaised / 1000000000000000000.0;
@@ -126,7 +131,34 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 						crowdsaleAddress: this.state.crowdsaleAddress,
 						jobiAddress: data.jobiAddress,
 						// handle divide be zero
-						ethRaised: ethRaised === 0 ? 0.000000001 : ethRaised
+						ethRaised: ethRaised === 0 ? 0.000000001 : ethRaised,
+						xcjRaised: this.state.xcjRaised
+					});
+				}
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error(status, err.toString());
+			}.bind(this)
+		});
+
+		var jobiAddress = this.state.jobiAddress;
+		var crowdsaleUrl = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${jobiAddress}&address=${contractAddress}&tag=latest&apikey=${apiKey}`;
+
+		$.ajax({
+			method: "GET",
+			url: crowdsaleUrl,
+			cache: false,
+			success: function (data) {
+				if (data && data.result) {
+					var rawXcjRemaining = parseInt(data.result);
+					var jobiRaised = 60000000 - (rawXcjRemaining / 100000.0);
+					this.setState({
+						isPastStartDate: this.state.isPastStartDate,
+						isPastEndDate: this.state.isPastEndDate,
+						crowdsaleAddress: this.state.crowdsaleAddress,
+						jobiAddress: data.jobiAddress,
+						ethRaised: this.state.ethRaised,
+						xcjRaised: jobiRaised === 0 ? 0.000000001 : jobiRaised,
 					});
 				}
 			}.bind(this),
@@ -145,10 +177,12 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	getMinPercentage() {
 		// 1000 jobis * 100% - conservative estimate
-		return (this.state.ethRaised * 100000.0 / 20300000.0);
+		//return (this.state.ethRaised * 100000.0 / 20300000.0);
+		return this.state.xcjRaised * 100 / 20300000.0;
 	}
 	getMaxPercentage() {
-		return (this.state.ethRaised * 100000.0 / 60000000.0);
+		//return (this.state.ethRaised * 100000.0 / 60000000.0);
+		return this.state.xcjRaised * 100 / 60000000.0;
 	}
 	render() {
 		return this.state.isPastStartDate ? (
@@ -213,7 +247,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 						<div>
 							<Statistic.Group widths='2' items={[
 								{ label: 'ETH Raised', value: this.numberWithCommas(this.state.ethRaised.toFixed(5)) },
-								{ label: 'XCJ Sold (approximated)', value: `${this.numberWithCommas((this.state.ethRaised * 1000).toFixed(5))}` }
+								{ label: 'XCJ Sold', value: `${this.numberWithCommas((this.state.xcjRaised).toFixed(5))}` }
 							]} size='large' />
 							<Progress color="orange" percent={(this.getMinPercentage())} indicating />
 							<div className="progress-label-container">
