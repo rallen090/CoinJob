@@ -369,8 +369,13 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 									: null}
 						</Accordion.Content>
 					</Accordion>
-					<Header.Content>
-					</Header.Content>
+					<Header.Subheader>
+					<br/>
+						<strong>View Solidity source code for the&nbsp;
+							<a href="https://github.com/rallen090/CoinJob/blob/master/Scripts/JobiContract.sol">Jobi (XCJ) Ethereum contract&nbsp;</a>
+							and the <a href="https://github.com/rallen090/CoinJob/blob/master/Scripts/CoinJobCrowdSaleContract.sol">CoinJob Crowdsale Ethereum contract</a>
+						</strong>
+					</Header.Subheader>
 					<br />
 				</Header>
 				<div className="ui equal width stackable internally celled grid">

@@ -18,7 +18,7 @@ contract owned {
 
 contract token {
     /* Public variables of the token */
-    string public standard = 'Jobi 1.0';
+    string public standard = 'Jobi 1.1';
     string public name;
     string public symbol;
     uint8 public decimals = 5;
@@ -125,6 +125,9 @@ contract Jobi is owned, token {
 
     function toggleMining(bool enabled) onlyOwner {
         miningEnabled = enabled;
+
+        // reset mining date
+        timeOfLastProof = now;
     }
 
     function setMiningMultiplier(uint multiplier) onlyOwner {
@@ -170,7 +173,17 @@ contract Jobi is owned, token {
 
         uint timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
         if (timeSinceLastProof <  5 seconds) throw;         // Rewards cannot be given too quickly
-        balanceOf[msg.sender] += timeSinceLastProof / 60 seconds * miningMultiplier;  // The reward to the winner grows by the minute
+        
+        // The reward to the winner grows by the minute
+        uint reward = timeSinceLastProof / 60 seconds * miningMultiplier;
+
+        // ceiling to ensure we don't exceed maxSupply
+        if((totalSupply + reward) > maxSupply){
+            reward = maxSupply - totalSupply;
+        }
+
+        totalSupply += reward;
+        balanceOf[msg.sender] += reward; 
 
         difficulty = difficulty * 10 minutes / timeSinceLastProof + 1;  // Adjusts the difficulty
 
