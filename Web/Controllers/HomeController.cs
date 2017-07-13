@@ -100,10 +100,14 @@ namespace Web.Controllers
 		[HttpGet, Route("contracts")]
 	    public IActionResult Contracts()
 	    {
-			//if (DateTime.Now < Constants.IcoStartDate)
-			//{
-			//	return null;
-			//}
+			if (DateTime.Now < Constants.IcoStartDate)
+			{
+				return Json(new CoinJobAddresses
+				{
+					TokenAddress = null,
+					CrowdSaleAddress = null
+				});
+			}
 
 			return Json(new CoinJobAddresses
 		    {

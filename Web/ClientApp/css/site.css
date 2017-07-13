@@ -92,14 +92,20 @@
 }
 .copy-button {
 	margin-bottom: 0 !important;
-	width: 50%;
+	width: 70%;
+	margin: 0 auto !important;
 }
 .copy-label {
-	width: 100%;
+	width: 70%;
+	margin: 0 auto !important;
+	font-size: 1.8vw !important;
 }
 .copy-container {
 	margin-bottom: 0 !important;
 	width: 100%;
+	text-align: center;
+	display: inline-flex !important;
+	align-items: center;
 }
 .progress-label {
 	margin-top: -14px !important;

@@ -61,10 +61,9 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		//var currentDate = new Date();
-		//var msDiff = this.startDate.getTime() - currentDate.getTime();
-		//return msDiff < 0;
-		return true;
+		var currentDate = new Date();
+		var msDiff = this.startDate.getTime() - currentDate.getTime();
+		return msDiff < 0;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -222,14 +221,16 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								<Label className='copy-label' size={this.isMobile() ? 'small' : 'big'} id='address-copy'>
 								{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
 								</Label>
+							</div>
+							<div className="copy-container">
 								<Popup
 									trigger={
-										<Button className='btn'
-											floated='right'
+										<Button className='btn copy-button'
 											color='yellow'
 											labelPosition='right'
 											icon='copy'
 											content='Copy'
+											size='mini'
 											data-clipboard-target="#address-copy">
 										</Button>
 									}
