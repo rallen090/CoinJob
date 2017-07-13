@@ -34,9 +34,10 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		var currentDate = new Date();
-		var msDiff = this.startDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.startDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -320,7 +321,9 @@ export default class Home extends React.Component<RouteComponentProps<{}>,
 						{!this.isPastPreSaleDate()
 							?
 							"Jobis will be available for presale at 00:00 on July 13th, 2017"
-							: "Presale now live to those who subscribed prior to 00:00 July 13th, 2017!"}
+							: !this.isPastStartDate() 
+								? "Presale now live to those who subscribed prior to 00:00 July 13th, 2017!"
+								: null}
 						
 						<br />
 						Total Tokens: 200,000,000<br />

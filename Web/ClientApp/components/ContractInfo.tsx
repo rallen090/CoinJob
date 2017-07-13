@@ -61,9 +61,10 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 	}
 	isPastStartDate() {
 		// note: new Date() is default already UTC
-		var currentDate = new Date();
-		var msDiff = this.startDate.getTime() - currentDate.getTime();
-		return msDiff < 0;
+		//var currentDate = new Date();
+		//var msDiff = this.startDate.getTime() - currentDate.getTime();
+		//return msDiff < 0;
+		return true;
 	}
 	isPastEndDate() {
 		// note: new Date() is default already UTC
@@ -90,7 +91,7 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 							isPastStartDate: this.state.isPastStartDate,
 							isPastEndDate: this.state.isPastEndDate,
 							crowdsaleAddress: data.crowdSaleAddress,
-							jobiAddress: data.jobiAddress,
+							jobiAddress: data.tokenAddress,
 							ethRaised: this.state.ethRaised,
 							xcjRaised: this.state.xcjRaised
 						});
@@ -176,13 +177,18 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 		$(this).select();
 	}
 	getMinPercentage() {
-		// 1000 jobis * 100% - conservative estimate
-		//return (this.state.ethRaised * 100000.0 / 20300000.0);
 		return this.state.xcjRaised * 100 / 20300000.0;
 	}
 	getMaxPercentage() {
-		//return (this.state.ethRaised * 100000.0 / 60000000.0);
 		return this.state.xcjRaised * 100 / 60000000.0;
+	}
+	isMobile() {
+		if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
+			if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	render() {
 		return this.state.isPastStartDate ? (
@@ -213,17 +219,17 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								</Header.Content>
 							</Header>
 							<div className="copy-container">
-								<Label className='copy-label' size='big' id='address-copy'>
+								<Label className='copy-label' size={this.isMobile() ? 'small' : 'big'} id='address-copy'>
 								{this.state.crowdsaleAddress ? (this.state.crowdsaleAddress) : "Determining..."}
 								</Label>
 								<Popup
 									trigger={
 										<Button className='btn'
-											floated='right'
 											color='yellow'
 											labelPosition='right'
 											icon='copy'
 											content='Copy'
+											float='right'
 											data-clipboard-target="#address-copy">
 										</Button>
 									}
@@ -246,16 +252,36 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 					(
 						<div>
 							<Statistic.Group widths='2' items={[
-								{ label: 'ETH Raised', value: this.numberWithCommas(this.state.ethRaised.toFixed(5)) },
-								{ label: 'XCJ Sold', value: `${this.numberWithCommas((this.state.xcjRaised).toFixed(5))}` }
-							]} size='large' />
+								{
+									label: 'ETH Raised', value: this.state.ethRaised
+										? this.numberWithCommas(this.state.ethRaised.toFixed(5))
+										: 0
+								},
+								{
+									label: 'XCJ Sold', value: this.state.xcjRaised
+										? this.numberWithCommas(this.state.xcjRaised.toFixed(5))
+										: 0
+								}
+							]} size={this.isMobile() ? 'small' : 'large'} />
 							<Progress color="orange" percent={(this.getMinPercentage())} indicating />
 							<div className="progress-label-container">
-								<Label className="progress-label" size='big' basic color={(this.getMinPercentage() >= 100 ? "green" : "orange")} pointing>
-									{(this.getMinPercentage() >= 100 ? "MIN goal reached! (20.3mm XCJ)" : "MIN funding goal of 20.3mm XCJ")}
+								<Label className="progress-label"
+									size={this.isMobile() ? 'small' : 'big'}
+									basic
+									color={(this.getMinPercentage() >= 100 ? "green" : "orange")}
+									pointing>
+									{(this.getMinPercentage() >= 100
+										? "MIN goal reached! (20.3mm XCJ)"
+										: "MIN goal of 20.3mm XCJ")}
 								</Label>
-								<Label className="progress-label" size='big' basic color={(this.getMaxPercentage() >= 100 ? "green" : "red")} pointing='below'>
-									{(this.getMaxPercentage() >= 100 ? "MAX goal reached! (60mm XCJ)" : "MAX funding goal of 60mm XCJ")}
+								<Label className="progress-label"
+								    size={this.isMobile() ? 'small' : 'big'}
+									basic
+									color={(this.getMaxPercentage() >= 100 ? "green" : "red")}
+									pointing='below'>
+									{(this.getMaxPercentage() >= 100
+										? "MAX goal reached! (60mm XCJ)"
+										: "MAX goal of 60mm XCJ")}
 								</Label>
 							</div>
 							<br/>
