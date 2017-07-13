@@ -225,11 +225,11 @@ export default class ContractInfo extends React.Component<{}, IContractState> {
 								<Popup
 									trigger={
 										<Button className='btn'
+											floated='right'
 											color='yellow'
 											labelPosition='right'
 											icon='copy'
 											content='Copy'
-											float='right'
 											data-clipboard-target="#address-copy">
 										</Button>
 									}
